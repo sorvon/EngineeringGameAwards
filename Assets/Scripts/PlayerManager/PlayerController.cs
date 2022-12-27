@@ -8,15 +8,18 @@ public class PlayerController : MonoBehaviour
     public float velocity = 10;
     public float hitInterval = 1;
     public int hitDamage = 1;
+    public float velocityDecreaseBase = 0.75f;
     private Rigidbody2D rb;
     private List<GameObject> destroyableTiles; 
     private float hitTimeCount = 0;
+    private PlayerCollect playerCollect;
     // Start is called before the first frame update
     void Start()
     {
         destroyableTiles = new List<GameObject>();
         rb = GetComponent<Rigidbody2D>();
         hitTimeCount = 0;
+        playerCollect = GetComponentInChildren<PlayerCollect>();
     }
 
     // Update is called once per frame
@@ -28,10 +31,16 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         hitTimeCount += Time.fixedDeltaTime;
-        Vector2 v = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        rb.velocity = velocity * v;
-        if (destroyableTiles.Count > 0 && hitTimeCount >= hitInterval && v.magnitude != 0)
+        var v = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        rb.velocity = Mathf.Pow(velocityDecreaseBase, playerCollect.collectedList.Count) * velocity * v;
+        if (destroyableTiles.Count > 0 && v.magnitude != 0)
         {
+            var sprite = GetComponentInChildren<SpriteRenderer>();
+            if(sprite)
+            {
+                sprite.color = Color.yellow;
+            }
+            if (hitTimeCount < hitInterval) return;
             if (destroyableTiles[^1].TryGetComponent<DestroyableTile>(out var tile))
             {
                 hitTimeCount = 0;
@@ -42,6 +51,14 @@ public class PlayerController : MonoBehaviour
             else
             {
                 print("err");
+            }
+        }
+        else
+        {
+            var sprite = GetComponentInChildren<SpriteRenderer>();
+            if (sprite)
+            {
+                sprite.color = Color.white;
             }
         }
     }
@@ -67,6 +84,5 @@ public class PlayerController : MonoBehaviour
                 destroyableTiles.Remove(collision.gameObject);
             }
         }
-        
     }
 }
