@@ -13,19 +13,13 @@ public class PlayerController : MonoBehaviour
     private List<GameObject> destroyableTiles; 
     private float hitTimeCount = 0;
     private PlayerCollect playerCollect;
-    // Start is called before the first frame update
-    void Start()
+
+    private void Awake()
     {
         destroyableTiles = new List<GameObject>();
         rb = GetComponent<Rigidbody2D>();
         hitTimeCount = 0;
         playerCollect = GetComponentInChildren<PlayerCollect>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void FixedUpdate()

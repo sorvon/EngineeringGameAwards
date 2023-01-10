@@ -12,8 +12,8 @@ public class DestroyableTile : MonoBehaviour
     public int max = 3;
     private GridLayout gridLayout;
     private Tilemap map;
-    // Start is called before the first frame update
-    void Start()
+
+    private void Start()
     {
         gridLayout = transform.parent.GetComponentInParent<GridLayout>();
         map = transform.parent.GetComponentInParent<Tilemap>();

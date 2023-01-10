@@ -1438,7 +1438,7 @@ MonoBehaviour:
   velocity: 3
   hitInterval: 1
   hitDamage: 1
-  velocityDecreaseBase: 0.75
+  velocityDecreaseBase: 0.8
 --- !u!1 &2014391538
 GameObject:
   m_ObjectHideFlags: 0

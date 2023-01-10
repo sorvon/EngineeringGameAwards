@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class CollectibleItem : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private LineRenderer lineRenderer;
+    private void Awake()
     {
-        
+        lineRenderer = GetComponent<LineRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (lineRenderer.enabled)
+        {
+
+        }
     }
 }
