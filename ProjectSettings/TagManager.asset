@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - DestroyableTile
+  - DangerEdge
   layers:
   - Default
   - TransparentFX
@@ -15,7 +16,7 @@ TagManager:
   - DestroyableTile
   - PlayerCollect
   - Collectible
-  - 
+  - BonusItem
   - 
   - 
   - 
