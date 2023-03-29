@@ -6,6 +6,11 @@ TagManager:
   tags:
   - DestroyableTile
   - DangerEdge
+  - Reward1
+  - Reward2
+  - Reward3
+  - Punishment
+  - Reward
   layers:
   - Default
   - TransparentFX
