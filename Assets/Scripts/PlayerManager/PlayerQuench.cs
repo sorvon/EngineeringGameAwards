@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
+
 
 public class PlayerQuench : MonoBehaviour
 {
@@ -17,10 +19,14 @@ public class PlayerQuench : MonoBehaviour
     public GameObject failurePanel;
     public Text scoretext;
     public int punishmentvalue;
-    public int rewardvalue;
-    public TextMeshProUGUI statistics;
-    public TextMeshProUGUI adjusttimetext;
-
+    public int rewardvalue;                   //增益加分分值
+    public TextMeshProUGUI statistics;        //表面质量等包装数据
+    public TextMeshProUGUI adjusttimetext;    //剩余调整次数
+    public TextMeshProUGUI scorechangeup;       //分数跳字
+    public TextMeshProUGUI scorechangedown;
+    //public GameObject target;
+    public GameObject obj1;
+    public RectTransform obj2;
 
 
     public int score;
@@ -34,7 +40,7 @@ public class PlayerQuench : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        score = 5;  
+        score = 5;
         scrollBase = "scroll";
         isTrigger = false;
         initPos = transform.position;
@@ -47,7 +53,7 @@ public class PlayerQuench : MonoBehaviour
         //继承前一次设定的滚条数据
         for (int i = 0; i < scrollbarList.Length; i++)
         {
-            if(PlayerPrefs.HasKey(scrollBase + i))
+            if (PlayerPrefs.HasKey(scrollBase + i))
             {
                 scrollbarList[i].value = PlayerPrefs.GetFloat(scrollBase + i);
             }
@@ -69,6 +75,8 @@ public class PlayerQuench : MonoBehaviour
             rb.velocity = Vector2.zero;*//*
             successes();
         }*/
+        // 将obj1的世界坐标转换为屏幕坐标
+        //positionconvert();
     }
 
     private void FixedUpdate()
@@ -88,23 +96,24 @@ public class PlayerQuench : MonoBehaviour
     public void Trigger()//开始淬火
     {
         //rb.velocity = new Vector2(5, 0);
-        if (adjusttime > 0) { 
-        for (int i = 0; i < scrollbarList.Length; i++)
+        if (adjusttime > 0)
         {
-            PlayerPrefs.SetFloat(scrollBase + i, scrollbarList[i].value);
-        }
-        adjusttime--;
-        adjusttimetext.text = "剩余次数：" + adjusttime;
+            for (int i = 0; i < scrollbarList.Length; i++)
+            {
+                PlayerPrefs.SetFloat(scrollBase + i, scrollbarList[i].value);
+            }
+            adjusttime--;
+            adjusttimetext.text = "剩余次数：" + adjusttime;
 
-        rb.AddForce(new Vector2(horizontalForce, 0),ForceMode2D.Impulse);
-        timeCount = 0;
-        isTrigger = true;
+            rb.AddForce(new Vector2(horizontalForce, 0), ForceMode2D.Impulse);
+            timeCount = 0;
+            isTrigger = true;
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        
+
         if (collision.collider.CompareTag("DangerEdge"))
         {
             print("用时：" + timeCount + " 秒");
@@ -135,13 +144,19 @@ public class PlayerQuench : MonoBehaviour
         {
             score += rewardvalue;
             collision.gameObject.SetActive(false);
+            scorechangeup.gameObject.SetActive(true);
+            FlyTo(scorechangeup);//跳字
         }
         if (collision.CompareTag("Punishment"))
         {
             score -= punishmentvalue;
             collision.gameObject.SetActive(false);
+            scorechangedown.gameObject.SetActive(true);
+            FlyTo(scorechangedown);//跳字
         }
         scoretext.text = "分数：" + score;
+        //positionconvert();
+
     }
     private void successes()//成功淬火
     {
@@ -149,7 +164,37 @@ public class PlayerQuench : MonoBehaviour
         successPanel.SetActive(true);
         rb.velocity = Vector2.zero;
         //scoretext.gameObject.SetActive(false);
-        statistics.text = "烧损程度：" + (score / 3) + "\n切损程度：" + (score / 3 - 1) + "\n表面质量：" + (score / 3 + 1);
+        statistics.text = "烧损程度：" + ((float)score / 3).ToString("0.0") + "\n切损程度：" + ((float)score / 3 - 1).ToString("0.0") + "\n表面质量：" + ((float)score / 3 + 1).ToString("0.0");
         scoretext.text = "分数：" + score;
     }
+    public static void FlyTo(Graphic graphic)//用于跳字。复制的，一句话都看不懂
+    {
+        RectTransform rt = graphic.rectTransform;
+        Color c = graphic.color;
+        c.a = 0;
+        graphic.color = c;
+        Sequence mySequence = DOTween.Sequence();
+        Tweener move1 = rt.DOMoveY(rt.position.y + 50, 0.5f);
+        Tweener move2 = rt.DOMoveY(rt.position.y + 100, 0.5f);
+        Tweener alpha1 = graphic.DOColor(new Color(c.r, c.g, c.b, 1), 0.5f);
+        Tweener alpha2 = graphic.DOColor(new Color(c.r, c.g, c.b, 0), 0.5f);
+        mySequence.Append(move1);
+        mySequence.Join(alpha1);
+        mySequence.AppendInterval(1);
+        mySequence.Append(move2);
+        mySequence.Join(alpha2);
+    }
+    public void positionconvert()
+    {
+        // 将obj1的世界坐标转换为屏幕坐标
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(obj1.transform.position);
+
+        // 将屏幕坐标转换为ui坐标
+        Vector2 localPos;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(obj2, screenPos, null, out localPos);
+
+        // 将ui坐标赋值给obj2的anchoredPosition3D属性
+        //obj2.transform.position = localPos;
+    }
+
 }
