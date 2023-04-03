@@ -22,17 +22,16 @@ public class PlayerQuench : MonoBehaviour
     public int rewardvalue;                   //增益加分分值
     public TextMeshProUGUI statistics;        //表面质量等包装数据
     public TextMeshProUGUI adjusttimetext;    //剩余调整次数
-    public TextMeshProUGUI scorechangeup;       //分数跳字
+    //分数跳字组件
+    public TextMeshProUGUI scorechangeup;       
     public TextMeshProUGUI scorechangedown;
-    //public GameObject target;
-    public GameObject obj1;
-    public RectTransform obj2;
+    public TextMeshProUGUI plus3;
 
 
     public int score;
     public static int adjusttime = 5;
     string scrollBase;
-    bool isTrigger;
+    public bool isTrigger;
     Rigidbody2D rb;
     Vector3 initPos;
     float timeCount;
@@ -68,15 +67,15 @@ public class PlayerQuench : MonoBehaviour
         {
             timeCount += Time.deltaTime;
         }
-        /*if (Vector3.Distance(transform.position, destination.position) < destTolerance)//成功淬火
+        //成功淬火
+        /*if (Vector3.Distance(transform.position, destination.position) < destTolerance)
         {
             *//*isTrigger = false;
             successPanel.SetActive(true);
             rb.velocity = Vector2.zero;*//*
             successes();
         }*/
-        // 将obj1的世界坐标转换为屏幕坐标
-        //positionconvert();
+        //scorechangedown.rectTransform.position = transform.position;
     }
 
     private void FixedUpdate()
@@ -111,7 +110,7 @@ public class PlayerQuench : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)//到达终点
     {
 
         if (collision.collider.CompareTag("DangerEdge"))
@@ -125,17 +124,20 @@ public class PlayerQuench : MonoBehaviour
         if (collision.collider.CompareTag("Reward1"))
         {
             score += 1;
-            successes();
+            Successe();
         }
         if (collision.collider.CompareTag("Reward2"))
         {
             score += 2;
-            successes();
+            Successe();
         }
         if (collision.collider.CompareTag("Reward3"))
         {
             score += 3;
-            successes();
+            Successe();
+            //跳字+3
+            plus3.rectTransform.position = transform.position;
+            FlyTo(plus3);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)//增益与障碍触碰
@@ -145,6 +147,7 @@ public class PlayerQuench : MonoBehaviour
             score += rewardvalue;
             collision.gameObject.SetActive(false);
             scorechangeup.gameObject.SetActive(true);
+            scorechangeup.rectTransform.position = transform.position;
             FlyTo(scorechangeup);//跳字
         }
         if (collision.CompareTag("Punishment"))
@@ -152,13 +155,13 @@ public class PlayerQuench : MonoBehaviour
             score -= punishmentvalue;
             collision.gameObject.SetActive(false);
             scorechangedown.gameObject.SetActive(true);
+            scorechangedown.rectTransform.position = transform.position;
             FlyTo(scorechangedown);//跳字
         }
         scoretext.text = "分数：" + score;
-        //positionconvert();
 
     }
-    private void successes()//成功淬火
+    private void Successe()//成功淬火
     {
         isTrigger = false;
         successPanel.SetActive(true);
@@ -174,8 +177,8 @@ public class PlayerQuench : MonoBehaviour
         c.a = 0;
         graphic.color = c;
         Sequence mySequence = DOTween.Sequence();
-        Tweener move1 = rt.DOMoveY(rt.position.y + 50, 0.5f);
-        Tweener move2 = rt.DOMoveY(rt.position.y + 100, 0.5f);
+        Tweener move1 = rt.DOMoveY(rt.position.y + 0.7f, 0.5f);
+        Tweener move2 = rt.DOMoveY(rt.position.y + 1.4f, 0.5f);
         Tweener alpha1 = graphic.DOColor(new Color(c.r, c.g, c.b, 1), 0.5f);
         Tweener alpha2 = graphic.DOColor(new Color(c.r, c.g, c.b, 0), 0.5f);
         mySequence.Append(move1);
@@ -184,7 +187,7 @@ public class PlayerQuench : MonoBehaviour
         mySequence.Append(move2);
         mySequence.Join(alpha2);
     }
-    public void positionconvert()
+    /*public void PositionConvert()
     {
         // 将obj1的世界坐标转换为屏幕坐标
         Vector3 screenPos = Camera.main.WorldToScreenPoint(obj1.transform.position);
@@ -194,7 +197,7 @@ public class PlayerQuench : MonoBehaviour
         RectTransformUtility.ScreenPointToLocalPointInRectangle(obj2, screenPos, null, out localPos);
 
         // 将ui坐标赋值给obj2的anchoredPosition3D属性
-        //obj2.transform.position = localPos;
-    }
+        scorechangedown.transform.position = localPos;
+    }*/
 
 }
