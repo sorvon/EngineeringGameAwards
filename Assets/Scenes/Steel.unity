@@ -1892,7 +1892,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a73526a1b865ce442ab764c896b7bc27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 2
+  oxygenUI: {fileID: 341244789}
 --- !u!120 &647720016
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -2778,14 +2779,14 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 647720015}
-        m_TargetAssemblyTypeName: UnityEngine.MonoBehaviour, UnityEngine
-        m_MethodName: StopCoroutine
-        m_Mode: 5
+        m_TargetAssemblyTypeName: StoveManager, Assembly-CSharp
+        m_MethodName: SetRotate
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0
+          m_FloatArgument: 90
           m_StringArgument: 90
           m_BoolArgument: 0
         m_CallState: 2
@@ -3179,7 +3180,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1451328497}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 647720015}
+        m_TargetAssemblyTypeName: StoveManager, Assembly-CSharp
+        m_MethodName: OxygenChange
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: -1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1451328497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3301,7 +3314,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1473161727}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 647720015}
+        m_TargetAssemblyTypeName: StoveManager, Assembly-CSharp
+        m_MethodName: OxygenChange
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1473161727
 MonoBehaviour:
   m_ObjectHideFlags: 0

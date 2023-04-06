@@ -53,7 +53,7 @@ public class MaterialManager : MonoBehaviour,
                 {
                     float x = (float)i / pointNum * width;
                     float y = Mathf.Sin(x / width * 2 * Mathf.PI) * height;
-                    points[i] = player_pos + new Vector3(x, y, 0);
+                    points[i] = player_pos + Quaternion.AngleAxis(StoveManager.rotate, Vector3.forward) * new Vector3(x, y, 0);
                 }
                 lineRenderer.positionCount = pointNum+1;
                 lineRenderer.SetPositions(points);
@@ -64,7 +64,7 @@ public class MaterialManager : MonoBehaviour,
                 {
                     float x = (float)i / pointNum * width;
                     float y = Mathf.Cos(x / width * 2 * Mathf.PI) * height - height;
-                    points[i] = player_pos + new Vector3(x, y, 0);
+                    points[i] = player_pos + Quaternion.AngleAxis(StoveManager.rotate, Vector3.forward) * new Vector3(x, y, 0);
                 }
                 lineRenderer.positionCount = pointNum+1;
                 lineRenderer.SetPositions(points);
@@ -76,7 +76,7 @@ public class MaterialManager : MonoBehaviour,
                 Vector3 diff = player_pos - points[0];
                 for (int i = 0; i < pointNum; i++)
                 {
-                    points[i] = diff + points[i];
+                    points[i] = diff + Quaternion.AngleAxis(StoveManager.rotate, Vector3.forward) * (points[i]-diff);
                 }
                 lineRenderer.SetPositions(points);
                 break;
