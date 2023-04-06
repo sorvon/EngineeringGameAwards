@@ -39,26 +39,21 @@ public class StoveManager : MonoBehaviour, IDropHandler
     void IDropHandler.OnDrop(PointerEventData eventData)
     {
         var incomeLineRenderer = eventData.pointerDrag.GetComponent<LineRenderer>();
+        MaterialManager materialManager = eventData.pointerDrag.GetComponent<MaterialManager>();
         lineRenderer.material = incomeLineRenderer.material;
         lineRenderer.startWidth = incomeLineRenderer.startWidth;
         lineRenderer.endWidth = incomeLineRenderer.endWidth;
         
-        rawPoints = new Vector3[incomeLineRenderer.positionCount];
-        incomeLineRenderer.GetPositions(rawPoints);
-        for (int i = 0; i < rawPoints.Length; i++)
+        rawPoints = materialManager.rawPoints;
+        Vector3[] points = new Vector3[Mathf.CeilToInt(rawPoints.Length * oxygen / 4.0f)];
+        for (int i = 0; i < points.Length; i++)
         {
-            rawPoints[i] = Quaternion.AngleAxis(-rotate, Vector3.forward) * (rawPoints[i] - player.transform.position) + player.transform.position;
+            points[i] = Quaternion.AngleAxis(rotate, Vector3.forward) * rawPoints[i];
+            points[i] = points[i] + player.transform.position;
         }
-        Vector3[] postions = new Vector3[Mathf.CeilToInt(rawPoints.Length * oxygen / 4.0f)];
-        for (int i = 0; i < postions.Length; i++)
-        {
-            postions[i] = rawPoints[i];
-            postions[i] = Quaternion.AngleAxis(rotate, Vector3.forward) * (postions[i] - player.transform.position) + player.transform.position;
-        }
-        lineRenderer.positionCount = postions.Length;
-        lineRenderer.SetPositions(postions);
+        lineRenderer.positionCount = points.Length;
+        lineRenderer.SetPositions(points);
         hasMatrial = true;
-        print(postions[0]);
     }
 
     public void MoveTrigger()
@@ -102,15 +97,15 @@ public class StoveManager : MonoBehaviour, IDropHandler
     {
         rotate = value;
         if (rawPoints == null) return;
-        Vector3[] postions = new Vector3[Mathf.CeilToInt(rawPoints.Length * oxygen / 4.0f)];
-        for (int i = 0; i < postions.Length; i++)
+        Vector3[] points = new Vector3[Mathf.CeilToInt(rawPoints.Length * oxygen / 4.0f)];
+        for (int i = 0; i < points.Length; i++)
         {
-            postions[i] = rawPoints[i];
-            postions[i] = Quaternion.AngleAxis(rotate, Vector3.forward) * (postions[i]-player.transform.position)+ player.transform.position;
+            points[i] = Quaternion.AngleAxis(rotate, Vector3.forward) * rawPoints[i];
+            points[i] = points[i] + player.transform.position;
         }
 
-        lineRenderer.positionCount = postions.Length;
-        lineRenderer.SetPositions(postions);
+        lineRenderer.positionCount = points.Length;
+        lineRenderer.SetPositions(points);
     }
 
     public void OxygenChange(int value)
@@ -119,14 +114,14 @@ public class StoveManager : MonoBehaviour, IDropHandler
         {
             oxygen += value;
             oxygenUI.text = Convert.ToString(oxygen);
-            Vector3[] postions = new Vector3[Mathf.CeilToInt(rawPoints.Length * oxygen / 4.0f)];
-            for (int i = 0; i < postions.Length; i++)
+            Vector3[] points = new Vector3[Mathf.CeilToInt(rawPoints.Length * oxygen / 4.0f)];
+            for (int i = 0; i < points.Length; i++)
             {
-                postions[i] = rawPoints[i];
-                postions[i] = Quaternion.AngleAxis(rotate, Vector3.forward) * (postions[i] - player.transform.position) + player.transform.position;
+                points[i] = Quaternion.AngleAxis(rotate, Vector3.forward) * rawPoints[i];
+                points[i] = points[i] + player.transform.position;
             }
-            lineRenderer.positionCount = postions.Length;
-            lineRenderer.SetPositions(postions);
+            lineRenderer.positionCount = points.Length;
+            lineRenderer.SetPositions(points);
         }
     }
 }

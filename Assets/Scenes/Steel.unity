@@ -2132,6 +2132,7 @@ MonoBehaviour:
   width: 5
   height: 1.5
   type: cos
+  rawPoints: []
 --- !u!120 &659552544
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -3388,7 +3389,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1491597928
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3506,6 +3507,7 @@ MonoBehaviour:
   width: 5
   height: 1.5
   type: 
+  rawPoints: []
 --- !u!120 &1491597933
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -3796,6 +3798,7 @@ MonoBehaviour:
   width: 5
   height: 1.5
   type: 
+  rawPoints: []
 --- !u!120 &1518294728
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -4430,6 +4433,7 @@ MonoBehaviour:
   width: 5
   height: 1.5
   type: sin
+  rawPoints: []
 --- !u!120 &1689024132
 LineRenderer:
   m_ObjectHideFlags: 0

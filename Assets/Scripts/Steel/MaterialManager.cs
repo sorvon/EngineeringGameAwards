@@ -18,6 +18,8 @@ public class MaterialManager : MonoBehaviour,
     private LineRenderer lineRenderer;
     private Vector3 thisPos;
     private Canvas canvas;
+    public Vector3[] rawPoints;
+    private int pointNum;
     static public bool lockHover;
     
     // Start is called before the first frame update
@@ -32,6 +34,38 @@ public class MaterialManager : MonoBehaviour,
     void Start()
     {
         player = GameObject.FindWithTag("Player");
+        pointNum = 100;
+        switch (type.ToLower())
+        {
+            case "sin":
+                rawPoints = new Vector3[pointNum + 1];
+                for (int i = 0; i < rawPoints.Length; i++)
+                {
+                    float x = (float)i / pointNum * width;
+                    float y = Mathf.Sin(x / width * 2 * Mathf.PI) * height;
+                    rawPoints[i] = new Vector3(x, y, 0);
+                }
+                break;
+            case "cos":
+                rawPoints = new Vector3[pointNum + 1];
+                for (int i = 0; i < rawPoints.Length; i++)
+                {
+                    float x = (float)i / pointNum * width;
+                    float y = Mathf.Cos(x / width * 2 * Mathf.PI) * height - height;
+                    rawPoints[i] = new Vector3(x, y, 0);
+                }
+                break;
+            default:
+                pointNum = lineRenderer.positionCount;
+                rawPoints = new Vector3[pointNum];
+                lineRenderer.GetPositions(rawPoints);
+                Vector3 diff = player.transform.position - rawPoints[0];
+                for (int i = 0; i < rawPoints.Length; i++)
+                {
+                    rawPoints[i] = rawPoints[i] - rawPoints[0];
+                }
+                break;
+        }
     }
 
     // Update is called once per frame
@@ -43,44 +77,51 @@ public class MaterialManager : MonoBehaviour,
     {
         if (lockHover) return;
         lineRenderer.enabled = true;
-        var player_pos = player.transform.position;
-        int pointNum = 100;
-        switch (type.ToLower())
+        Vector3[] points = new Vector3[Mathf.CeilToInt(rawPoints.Length * StoveManager.oxygen / 4.0f)];
+        for (int i = 0; i < points.Length; i++)
         {
-            case "sin":
-                Vector3[] points = new Vector3[pointNum+1];
-                for (int i = 0; i <= pointNum; i++)
-                {
-                    float x = (float)i / pointNum * width;
-                    float y = Mathf.Sin(x / width * 2 * Mathf.PI) * height;
-                    points[i] = player_pos + Quaternion.AngleAxis(StoveManager.rotate, Vector3.forward) * new Vector3(x, y, 0);
-                }
-                lineRenderer.positionCount = pointNum+1;
-                lineRenderer.SetPositions(points);
-                break;
-            case "cos":
-                points = new Vector3[pointNum+1];
-                for (int i = 0; i <= pointNum; i++)
-                {
-                    float x = (float)i / pointNum * width;
-                    float y = Mathf.Cos(x / width * 2 * Mathf.PI) * height - height;
-                    points[i] = player_pos + Quaternion.AngleAxis(StoveManager.rotate, Vector3.forward) * new Vector3(x, y, 0);
-                }
-                lineRenderer.positionCount = pointNum+1;
-                lineRenderer.SetPositions(points);
-                break;
-            default:
-                pointNum = lineRenderer.positionCount;
-                points = new Vector3[pointNum];
-                lineRenderer.GetPositions(points);
-                Vector3 diff = player_pos - points[0];
-                for (int i = 0; i < pointNum; i++)
-                {
-                    points[i] = diff + Quaternion.AngleAxis(StoveManager.rotate, Vector3.forward) * (points[i]-diff);
-                }
-                lineRenderer.SetPositions(points);
-                break;
+            points[i] = Quaternion.AngleAxis(StoveManager.rotate, Vector3.forward) * rawPoints[i];
+            points[i] = points[i] + player.transform.position;
         }
+        lineRenderer.positionCount = points.Length;
+        lineRenderer.SetPositions(points);
+        //switch (type.ToLower())
+        //{
+        //    case "sin":
+        //        Vector3[] points = new Vector3[pointNum+1];
+        //        for (int i = 0; i <= pointNum; i++)
+        //        {
+        //            float x = (float)i / pointNum * width;
+        //            float y = Mathf.Sin(x / width * 2 * Mathf.PI) * height;
+        //            points[i] = player_pos + Quaternion.AngleAxis(StoveManager.rotate, Vector3.forward) * new Vector3(x, y, 0);
+        //        }
+        //        lineRenderer.positionCount = pointNum+1;
+        //        lineRenderer.SetPositions(points);
+        //        break;
+        //    case "cos":
+        //        points = new Vector3[pointNum+1];
+        //        for (int i = 0; i <= pointNum; i++)
+        //        {
+        //            float x = (float)i / pointNum * width;
+        //            float y = Mathf.Cos(x / width * 2 * Mathf.PI) * height - height;
+        //            points[i] = player_pos + Quaternion.AngleAxis(StoveManager.rotate, Vector3.forward) * new Vector3(x, y, 0);
+        //        }
+        //        lineRenderer.positionCount = pointNum+1;
+        //        lineRenderer.SetPositions(points);
+        //        break;
+        //    default:
+        //        pointNum = lineRenderer.positionCount;
+        //        points = new Vector3[pointNum];
+        //        lineRenderer.GetPositions(points);
+        //        Vector3 diff = player_pos - points[0];
+        //        for (int i = 0; i < pointNum; i++)
+        //        {
+        //            points[i] = diff + points[i];
+        //            points[i] = player_pos + Quaternion.AngleAxis(StoveManager.rotate, Vector3.forward) * (points[i]- player_pos);
+        //        }
+        //        lineRenderer.SetPositions(points);
+        //        break;
+        //}
     }
 
     void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
