@@ -96,6 +96,7 @@ public class StoveManager : MonoBehaviour, IDropHandler
     public void SetRotate(float value)
     {
         rotate = value;
+        if (!hasMatrial) return;
         if (rawPoints == null) return;
         Vector3[] points = new Vector3[Mathf.CeilToInt(rawPoints.Length * oxygen / 4.0f)];
         for (int i = 0; i < points.Length; i++)
@@ -114,6 +115,7 @@ public class StoveManager : MonoBehaviour, IDropHandler
         {
             oxygen += value;
             oxygenUI.text = Convert.ToString(oxygen);
+            if (!hasMatrial) return;
             Vector3[] points = new Vector3[Mathf.CeilToInt(rawPoints.Length * oxygen / 4.0f)];
             for (int i = 0; i < points.Length; i++)
             {
@@ -123,5 +125,12 @@ public class StoveManager : MonoBehaviour, IDropHandler
             lineRenderer.positionCount = points.Length;
             lineRenderer.SetPositions(points);
         }
+    }
+
+    public void OnPlayerCollision()
+    {
+        hasMatrial = false;
+        MaterialManager.lockHover = false;
+        lineRenderer.positionCount = 0;
     }
 }

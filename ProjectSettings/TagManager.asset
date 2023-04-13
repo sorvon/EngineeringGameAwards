@@ -11,6 +11,7 @@ TagManager:
   - Reward3
   - Punishment
   - Reward
+  - Target
   layers:
   - Default
   - TransparentFX
