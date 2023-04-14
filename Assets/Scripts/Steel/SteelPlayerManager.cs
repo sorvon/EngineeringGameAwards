@@ -14,6 +14,6 @@ public class SteelPlayerManager : MonoBehaviour
             stoveManager.OnPlayerCollision();
             transform.DOKill();
             transform.position = Vector3.zero;
-        }
+        } 
     }
 }

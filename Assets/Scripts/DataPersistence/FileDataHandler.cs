@@ -7,10 +7,13 @@ public class FileDataHandler
 {
     private string dataDirPath = "";
     private string dataFilename = "";
-    public FileDataHandler(string dataDirPath, string dataFilename)
+    private bool useEncryption = false;
+    private readonly string encryptionCodeWord = "¶«¹ÏÎ÷¹Ï¹þÃÜ¹Ï£¬¹Ø×¢ÄËÁÕÐ»Ð»¸Â";
+    public FileDataHandler(string dataDirPath, string dataFilename, bool useEncryption)
     {
         this.dataDirPath = dataDirPath;
         this.dataFilename = dataFilename;
+        this.useEncryption = useEncryption;
     }
 
     public GameData Load(string profileId)
@@ -26,7 +29,12 @@ public class FileDataHandler
                 using FileStream fs = File.OpenRead(fullPath);
                 using StreamReader sr = new(fs);
                 dataToLoad = sr.ReadToEnd();
+                if (useEncryption)
+                {
+                    dataToLoad = EncryptDecrypt(dataToLoad);
+                }
                 gameData = JsonUtility.FromJson<GameData>(dataToLoad);
+
             }
             catch (System.Exception e)
             {
@@ -43,6 +51,10 @@ public class FileDataHandler
         {
             Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
             string dataToStore = JsonUtility.ToJson(gameData, true);
+            if (useEncryption)
+            {
+                dataToStore = EncryptDecrypt(dataToStore);
+            }
             using FileStream fs = File.OpenWrite(fullPath);
             using StreamWriter sw = new(fs);
             sw.Write(dataToStore);
@@ -54,10 +66,21 @@ public class FileDataHandler
     }
     public void Delete(string profileId)
     {
+        if (profileId == null)
+        {
+            return;
+        }
         string fullPath = Path.Combine(dataDirPath, profileId, dataFilename);
         try
         {
-            File.Delete(fullPath);
+            if (File.Exists(fullPath))
+            {
+                Directory.Delete(Path.GetDirectoryName(fullPath), true);
+            }
+            else
+            {
+                Debug.LogWarning("Tried to delete profile data, but data was not found at path: " + fullPath);
+            }
         }
         catch (System.Exception e)
         {
@@ -87,5 +110,15 @@ public class FileDataHandler
             }
         }
         return profileDirctionary;
+    }
+
+    private string EncryptDecrypt(string data)
+    {
+        string modifiedData = "";
+        for (int i = 0; i < data.Length; i++)
+        {
+            modifiedData += (char)(data[i] ^ encryptionCodeWord[i % encryptionCodeWord.Length]);
+        }
+        return modifiedData;
     }
 }

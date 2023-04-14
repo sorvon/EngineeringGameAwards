@@ -10,7 +10,9 @@ public class DataPersistenceManager : MonoBehaviour
     private GameData gameData;
     private List<IDataPersistence> dataPersistenceObjects;
     private FileDataHandler fileDataHandler;
-    private string selectedProfileId = "test";
+    [Header("File Storage Config")]
+    [SerializeField] private string selectedProfileId = "data.game";
+    [SerializeField] bool useEncryption = false;
     public void Awake()
     {
         if (instance != null)
@@ -19,7 +21,7 @@ public class DataPersistenceManager : MonoBehaviour
             Destroy(gameObject);
         }
         instance = this;
-        fileDataHandler = new(Application.persistentDataPath, selectedProfileId);
+        fileDataHandler = new(Application.persistentDataPath, selectedProfileId, useEncryption);
         DontDestroyOnLoad(gameObject);
     }
 

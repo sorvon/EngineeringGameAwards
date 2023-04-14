@@ -4,39 +4,54 @@ using UnityEngine;
 
 public class PlayerCollect : MonoBehaviour
 {
-    private List<GameObject> collectList;
+    public float collectInterval = 0.5f;
+    public List<GameObject> collectList;
     public List<GameObject> collectedList;
     private Rigidbody2D rb;
+    private float Fire1HoldTime;
 
     private void Awake()
     {
         collectList = new List<GameObject>();
         collectedList = new List<GameObject>();
         rb = GetComponentInParent<Rigidbody2D>();
+        Fire1HoldTime = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        Fire1HoldTime += Time.deltaTime;
+        if (Input.GetButton("Fire1"))
         {
-            foreach (var item in collectList)
+            if(Fire1HoldTime > collectInterval)
             {
-                if (item.TryGetComponent<SpringJoint2D>(out var joint))
+                Fire1HoldTime = 0;
+                foreach (var item in collectList)
                 {
-                    joint.enabled = true;
-                    joint.connectedBody = rb;
-                    collectedList.Add(item);
+                    if (item.TryGetComponent<SpringJoint2D>(out var joint))
+                    {
+                        if (joint.enabled)
+                        {
+                            continue;
+                        }
+                        joint.enabled = true;
+                        joint.connectedBody = rb;
+                        collectedList.Add(item);
+                    }
+                    if (item.TryGetComponent<LineRenderer>(out var line))
+                    {
+                        line.enabled = true;
+                        Vector3[] pos = new Vector3[2];
+                        pos[0] = item.transform.position;
+                        pos[1] = transform.position;
+                        line.SetPositions(pos);
+                    }
+                    break;
                 }
-                if (item.TryGetComponent<LineRenderer>(out var line))
-                {
-                    line.enabled = true;
-                    Vector3[] pos = new Vector3[2];
-                    pos[0] = item.transform.position;
-                    pos[1] = transform.position;
-                    line.SetPositions(pos);
-                }
+
             }
+            
         }
         else if (Input.GetButtonDown("Fire2"))
         {
@@ -73,11 +88,11 @@ public class PlayerCollect : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (!collectList.Contains(collision.gameObject))
         {
-            print("add:" + collision.gameObject.name);
+            //print("add:" + collision.gameObject.name);
             collectList.Add(collision.gameObject);
         }
         
@@ -87,7 +102,7 @@ public class PlayerCollect : MonoBehaviour
     {
         if (collectList.Contains(collision.gameObject))
         {
-            print("remove:" + collision.gameObject.name);
+            //print("remove:" + collision.gameObject.name);
             collectList.Remove(collision.gameObject);
         }
     }

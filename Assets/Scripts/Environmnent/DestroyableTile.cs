@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 
 public class DestroyableTile : MonoBehaviour
 {
-    public int HP = 10;
+    public float HP = 10;
     public GameObject[] drops;
     [Header("Number of drops")]
     public int min = 1;
@@ -19,7 +19,7 @@ public class DestroyableTile : MonoBehaviour
         map = transform.parent.GetComponentInParent<Tilemap>();
     }
 
-    public bool SetHP(int value)
+    public bool SetHP(float value)
     {
         HP = value;
         if(HP <= 0)

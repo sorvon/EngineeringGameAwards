@@ -11,20 +11,18 @@ public class PlayerController : MonoBehaviour
     public float velocityDecreaseBase = 0.75f;
     private Rigidbody2D rb;
     private List<GameObject> destroyableTiles; 
-    private float hitTimeCount = 0;
     private PlayerCollect playerCollect;
 
     private void Awake()
     {
         destroyableTiles = new List<GameObject>();
         rb = GetComponent<Rigidbody2D>();
-        hitTimeCount = 0;
         playerCollect = GetComponentInChildren<PlayerCollect>();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        hitTimeCount += Time.fixedDeltaTime;
+        
         var v = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         rb.velocity = Mathf.Pow(velocityDecreaseBase, playerCollect.collectedList.Count) * velocity * v;
         if (destroyableTiles.Count > 0 && v.magnitude != 0)
@@ -34,12 +32,10 @@ public class PlayerController : MonoBehaviour
             {
                 sprite.color = Color.yellow;
             }
-            if (hitTimeCount < hitInterval) return;
             if (destroyableTiles[^1].TryGetComponent<DestroyableTile>(out var tile))
             {
-                hitTimeCount = 0;
-                print(destroyableTiles.Count);
-                bool isBroken = tile.SetHP(tile.HP - hitDamage);
+                //print(destroyableTiles.Count);
+                bool isBroken = tile.SetHP(tile.HP - Time.deltaTime * hitDamage);
                 if(isBroken) destroyableTiles.RemoveAt(destroyableTiles.Count - 1);
             }
             else
@@ -59,6 +55,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log(collision.contacts[0].collider.name);
         if (collision.gameObject.CompareTag("DestroyableTile"))
         {
             if (!destroyableTiles.Contains(collision.gameObject))
