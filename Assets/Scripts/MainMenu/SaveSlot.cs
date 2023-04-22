@@ -12,10 +12,11 @@ public class SaveSlot : MonoBehaviour
     [SerializeField] private GameObject hasDataContent;
     [SerializeField] private TextMeshProUGUI lastTimeText;
     [SerializeField] private TextMeshProUGUI durationTimeText;
-    public bool hasData { get; private set; }
+    [SerializeField] private ConfirmDialog confirmDialog;
+    public bool HasData { get; private set; }
     SaveSlot()
     {
-        hasData = false;
+        HasData = false;
     }
     public void SetData(GameData gameData)
     {
@@ -23,11 +24,11 @@ public class SaveSlot : MonoBehaviour
         {
             noDataContent.SetActive(true);
             hasDataContent.SetActive(false);
-            hasData = false;
+            HasData = false;
         }
         else
         {
-            hasData = true;
+            HasData = true;
             noDataContent.SetActive(false);
             hasDataContent.SetActive(true);
             lastTimeText.text = gameData.lastTime;
@@ -43,7 +44,7 @@ public class SaveSlot : MonoBehaviour
     public void OnSlotClicked()
     {
         DataPersistenceManager.instance.ChangeSelectedProfileId(profileId);
-        if (!hasData)
+        if (!HasData)
         {
             DataPersistenceManager.instance.NewGame();
         }
@@ -53,7 +54,17 @@ public class SaveSlot : MonoBehaviour
 
     public void OnDeleteSlotClicked()
     {
-        DataPersistenceManager.instance.DeleteData(profileId);
-        SetData(null);
+        if (!HasData)
+        {
+            return;
+        }
+        confirmDialog.ActivateMenu("È·ÈÏÉ¾³ýÂð£¿",
+            () =>
+            {
+                DataPersistenceManager.instance.DeleteData(profileId);
+                SetData(null);
+            },
+            () => { });
+        
     }
 }
