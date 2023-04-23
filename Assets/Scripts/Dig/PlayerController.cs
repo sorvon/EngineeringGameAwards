@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] float velocityBase = 10;
-    [SerializeField] float hitInterval = 1;
+    [SerializeField] float hitInterval = 0.1f;
     [SerializeField] int hitDamageBase = 1;
     [SerializeField] float velocityDecreaseBase = 0.75f;
     [SerializeField] StateManager stateManager;
@@ -16,16 +17,22 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private List<GameObject> destroyableTiles; 
     private PlayerCollect playerCollect;
+    private Animator playerAnimator;
     private bool skillTreeTrigger;
+    private float hitIntervalTimeCount;
+    private bool moveLock;
 
     private void Awake()
     {
         velocity = velocityBase;
         hitDamage = hitDamageBase;
+        moveLock = false;
+        hitIntervalTimeCount = 0;
         skillTreeTrigger = false;
         destroyableTiles = new List<GameObject>();
         rb = GetComponent<Rigidbody2D>();
         playerCollect = GetComponentInChildren<PlayerCollect>();
+        playerAnimator = GetComponentInChildren<Animator>();
     }
 
     private void Update()
@@ -50,21 +57,58 @@ public class PlayerController : MonoBehaviour
         {
             Time.timeScale = 1;
         }
-
+        
+    }
+    private void FixedUpdate()
+    {
+        hitIntervalTimeCount += Time.fixedDeltaTime;
         var v = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        rb.velocity = Mathf.Pow(velocityDecreaseBase, playerCollect.collectedList.Count) * velocity * v;
-        if (destroyableTiles.Count > 0 && v.magnitude != 0)
+        print(v);
+        if (! moveLock)
         {
-            var sprite = GetComponentInChildren<SpriteRenderer>();
-            if(sprite)
-            {
-                sprite.color = Color.yellow;
-            }
+            rb.velocity = Mathf.Pow(velocityDecreaseBase, playerCollect.collectedList.Count) * velocity * v;
+        }
+        
+        if (destroyableTiles.Count > 0 && v.magnitude != 0 && hitIntervalTimeCount > hitInterval)
+        {
+            hitIntervalTimeCount = 0;
+            //var sprite = GetComponentInChildren<SpriteRenderer>();
+            //if(sprite)
+            //{
+            //    sprite.color = Color.yellow;
+            //}
             if (destroyableTiles[^1].TryGetComponent<DestroyableTile>(out var tile))
             {
                 //print(destroyableTiles.Count);
-                bool isBroken = tile.SetHP(tile.HP - Time.deltaTime * hitDamage);
-                if(isBroken) destroyableTiles.RemoveAt(destroyableTiles.Count - 1);
+                var vecDir = (tile.transform.position - transform.position).normalized;
+                float angleCos = Vector3.Dot(vecDir, Vector3.right);
+                if (angleCos >= 1 / Mathf.Sqrt(2))
+                {
+                    playerAnimator.SetTrigger("HitRight");
+                }
+                else if (angleCos <= -1 / Mathf.Sqrt(2))
+                {
+                    playerAnimator.SetTrigger("HitLeft");
+                }
+                else if (vecDir.y > 0)
+                {
+                    playerAnimator.SetTrigger("HitUp");
+                }
+                else
+                {
+                    playerAnimator.SetTrigger("HitDown");
+                }
+                //rb.velocity = Vector2.zero;
+                //rb.AddForce(-vecDir * 10, ForceMode2D.Impulse);
+                moveLock = true;
+                rb.velocity = Vector2.zero;
+                rb.DOMove(new Vector2(-vecDir.x, -vecDir.y)*0.1f, 0.5f).SetRelative(true).OnComplete(() =>
+                {
+                    Input.ResetInputAxes();
+                    moveLock = false;
+                });
+                bool isBroken = tile.SetHP(tile.HP - hitDamage);
+                if (isBroken) destroyableTiles.RemoveAt(destroyableTiles.Count - 1);
             }
             else
             {
@@ -73,11 +117,11 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            var sprite = GetComponentInChildren<SpriteRenderer>();
-            if (sprite)
-            {
-                sprite.color = Color.white;
-            }
+            //var sprite = GetComponentInChildren<SpriteRenderer>();
+            //if (sprite)
+            //{
+            //    sprite.color = Color.white;
+            //}
         }
     }
 
