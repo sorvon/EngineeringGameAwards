@@ -12,6 +12,11 @@ TagManager:
   - Punishment
   - Reward
   - Target
+  - Base
+  - MineCollector
+  - SkillTreeTrigger
+  - MineA
+  - MineB
   layers:
   - Default
   - TransparentFX

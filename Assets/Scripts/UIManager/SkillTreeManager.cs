@@ -4,6 +4,14 @@ using UnityEngine;
 using DG.Tweening;
 public class SkillTreeManager : MonoBehaviour
 {
+    [Header("Skill Level")]
+    public int skill_1 = 0;
+    [SerializeField] GameObject skill_ui_1;
+    public int skill_2 = 0;
+    [SerializeField] GameObject skill_ui_2;
+    public int skill_3 = 0;
+    [SerializeField] GameObject skill_ui_3;
+
     [Header("Skill tree config")]
     [SerializeField] Vector3 cameraPos;
     [SerializeField] float orthogrphicSize = 0.95f;

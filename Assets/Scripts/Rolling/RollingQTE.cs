@@ -8,6 +8,7 @@ using Random = UnityEngine.Random;
 public class RollingQTE : MonoBehaviour
 {
     [Header("Debug")]
+    [SerializeField] bool overrideDifficulty;
     [SerializeField] int defaultDifficulty = 1;
     [Header("Easy")]
     [SerializeField] float interval_1 = 1;
@@ -36,6 +37,10 @@ public class RollingQTE : MonoBehaviour
     {
         timeCount = 0;
         direction = true;
+        if (overrideDifficulty)
+        {
+            PlayerPrefs.SetInt("difficulty", defaultDifficulty);
+        }
         int difficulty = PlayerPrefs.GetInt("difficulty", defaultDifficulty);
         switch (difficulty)
         {
@@ -114,7 +119,7 @@ public class RollingQTE : MonoBehaviour
             Image img = lightList[i].GetComponent<Image>();
             if (currentIndex == i)
             {
-                img.color = Color.red;
+                img.color = Color.white;
             }
             else
             {

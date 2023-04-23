@@ -5,16 +5,24 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
-    public float velocity = 10;
-    public float hitInterval = 1;
-    public int hitDamage = 1;
-    public float velocityDecreaseBase = 0.75f;
+    [SerializeField] float velocityBase = 10;
+    [SerializeField] float hitInterval = 1;
+    [SerializeField] int hitDamageBase = 1;
+    [SerializeField] float velocityDecreaseBase = 0.75f;
+    [SerializeField] StateManager stateManager;
+    [SerializeField] GameObject skillTree;
+    float velocity;
+    float hitDamage;
     private Rigidbody2D rb;
     private List<GameObject> destroyableTiles; 
     private PlayerCollect playerCollect;
+    private bool skillTreeTrigger;
 
     private void Awake()
     {
+        velocity = velocityBase;
+        hitDamage = hitDamageBase;
+        skillTreeTrigger = false;
         destroyableTiles = new List<GameObject>();
         rb = GetComponent<Rigidbody2D>();
         playerCollect = GetComponentInChildren<PlayerCollect>();
@@ -22,7 +30,27 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        
+        if (skillTreeTrigger)
+        {
+            if (Input.GetButtonDown("Fire1") && skillTree.activeSelf == false)
+            {
+                skillTree.SetActive(true);
+            }
+            else if (Input.GetButtonDown("Fire2") && skillTree.activeSelf == true)
+            {
+                skillTree.SetActive(false);
+                
+            }
+        }
+        if (skillTree.activeSelf)
+        {
+            Time.timeScale = 0;
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
+
         var v = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         rb.velocity = Mathf.Pow(velocityDecreaseBase, playerCollect.collectedList.Count) * velocity * v;
         if (destroyableTiles.Count > 0 && v.magnitude != 0)
@@ -55,7 +83,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log(collision.contacts[0].collider.name);
+        //Debug.Log(collision.contacts[0].collider.name);
         if (collision.gameObject.CompareTag("DestroyableTile"))
         {
             if (!destroyableTiles.Contains(collision.gameObject))
@@ -74,6 +102,35 @@ public class PlayerController : MonoBehaviour
             {
                 destroyableTiles.Remove(collision.gameObject);
             }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("MineCollector"))
+        {
+            playerCollect.Collect(out int numA, out int numB);
+            stateManager.MineAdd(numA, numB);
+        }
+        if (collision.CompareTag("SkillTreeTrigger"))
+        {
+            skillTreeTrigger = true;
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Base"))
+        {
+            stateManager.PowerRecover();
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("SkillTreeTrigger"))
+        {
+            skillTreeTrigger = false;
         }
     }
 }

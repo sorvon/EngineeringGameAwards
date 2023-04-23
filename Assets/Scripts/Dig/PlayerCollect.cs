@@ -88,6 +88,28 @@ public class PlayerCollect : MonoBehaviour
         }
     }
 
+    public void Collect(out int numA, out int numB)
+    {
+        numA = 0;
+        numB = 0;
+        foreach (var item in collectedList)
+        {
+            if (item.CompareTag("MineA"))
+            {
+                numA++;
+            }
+            else if (item.CompareTag("MineB"))
+            {
+                numB++;
+            }
+        }
+        foreach (var item in collectedList)
+        {
+            Destroy(item);
+        }
+        collectedList.RemoveRange(0, collectedList.Count);
+    }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (!collectList.Contains(collision.gameObject))
