@@ -169,6 +169,7 @@ public class PlayerQuench : MonoBehaviour
         //scoretext.gameObject.SetActive(false);
         statistics.text = "烧损程度：" + ((float)score / 3).ToString("0.0") + "\n切损程度：" + ((float)score / 3 - 1).ToString("0.0") + "\n表面质量：" + ((float)score / 3 + 1).ToString("0.0");
         scoretext.text = "分数：" + score;
+        Debug.Log("用时：" + timeCount);
     }
     public static void FlyTo(Graphic graphic)//用于跳字。复制的，一句话都看不懂
     {
