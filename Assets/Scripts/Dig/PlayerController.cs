@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
     {
         hitIntervalTimeCount += Time.fixedDeltaTime;
         var v = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        print(v);
+        //print(v);
         if (! moveLock)
         {
             rb.velocity = Mathf.Pow(velocityDecreaseBase, playerCollect.collectedList.Count) * velocity * v;

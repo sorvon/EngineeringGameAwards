@@ -47,6 +47,14 @@ public class PlayerCollect : MonoBehaviour
                         pos[1] = transform.position;
                         line.SetPositions(pos);
                     }
+                    if (item.TryGetComponent<Rigidbody2D>(out var rigidbody2D))
+                    {
+                        rigidbody2D.gravityScale = 0.1f;
+                    }
+                    if (item.TryGetComponent<ParticleSystem>(out var particleSystem))
+                    {
+                        particleSystem.Play();
+                    }
                     break;
                 }
 
@@ -65,6 +73,14 @@ public class PlayerCollect : MonoBehaviour
                 if (item.TryGetComponent<LineRenderer>(out var line))
                 {
                     line.enabled = false;
+                }
+                if (item.TryGetComponent<Rigidbody2D>(out var rigidbody2D))
+                {
+                    rigidbody2D.gravityScale = 1;
+                }
+                if (item.TryGetComponent<ParticleSystem>(out var particleSystem))
+                {
+                    particleSystem.Stop();
                 }
             }
             collectedList.RemoveRange(0, collectedList.Count);

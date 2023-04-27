@@ -30,7 +30,9 @@ public class DestroyableTile : MonoBehaviour
                 for (int i = 0; i < num; i++)
                 {
                     int index = Random.Range(0, drops.Length);
-                    Instantiate(drops[index], transform.position, transform.rotation);
+                    Instantiate(drops[index], 
+                        transform.position + Random.Range(0, 0.1f) * Vector3.one, 
+                        transform.rotation);
                 }
             }
             
