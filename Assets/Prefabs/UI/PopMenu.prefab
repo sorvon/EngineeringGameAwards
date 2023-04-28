@@ -122,7 +122,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7477303322725949302}
+      - m_Target: {fileID: 569032239397284500}
         m_TargetAssemblyTypeName: ChangeScene, Assembly-CSharp
         m_MethodName: ReloadScene
         m_Mode: 1
@@ -795,7 +795,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7477303322725949302}
+      - m_Target: {fileID: 569032239397284500}
         m_TargetAssemblyTypeName: ChangeScene, Assembly-CSharp
         m_MethodName: ToScene
         m_Mode: 5
@@ -951,6 +951,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7477303322295785448}
+  - component: {fileID: 569032239397284500}
   m_Layer: 5
   m_Name: PopMenu
   m_TagString: Untagged
@@ -980,6 +981,19 @@ RectTransform:
   m_AnchoredPosition: {x: 209.02396, y: 101.17529}
   m_SizeDelta: {x: 1501.949, y: 877.1046}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &569032239397284500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7477303322295785449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5613983395c362544bdc685dc53f2818, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
 --- !u!1 &7477303322541117770
 GameObject:
   m_ObjectHideFlags: 0
@@ -1125,7 +1139,6 @@ GameObject:
   - component: {fileID: 7477303322725949301}
   - component: {fileID: 7477303322725949303}
   - component: {fileID: 7477303322725949300}
-  - component: {fileID: 7477303322725949302}
   m_Layer: 5
   m_Name: Menu
   m_TagString: Untagged
@@ -1194,15 +1207,3 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7477303322725949302
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7477303322725949290}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5613983395c362544bdc685dc53f2818, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

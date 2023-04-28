@@ -23,10 +23,14 @@ public class RollingQTE : MonoBehaviour
     [SerializeField] float moveDistance = -150;
     [SerializeField] GameObject bars;
     [SerializeField] GameObject lights;
+    [SerializeField] GameObject bases;
     [SerializeField] float timeCountdown = 30f;
     [SerializeField] GameObject steelBar;
+    [SerializeField] GameObject successMenu;
+    [SerializeField] GameObject failMenu;
     List<GameObject> barList = new();
     List<GameObject> lightList = new();
+    List<GameObject> baseList = new();
     float interval;
     int barNum;
 
@@ -77,11 +81,13 @@ public class RollingQTE : MonoBehaviour
                 state[i] = false;
                 barList.Add(bars.transform.GetChild(shuffleArr[i]).gameObject);
                 lightList.Add(lights.transform.GetChild(shuffleArr[i]).gameObject);
+                baseList.Add(bases.transform.GetChild(shuffleArr[i]).gameObject);
             }
             else
             {
                 bars.transform.GetChild(shuffleArr[i]).gameObject.SetActive(false);
                 lights.transform.GetChild(shuffleArr[i]).gameObject.SetActive(false);
+                bases.transform.GetChild(shuffleArr[i]).gameObject.SetActive(false);
             }
             //GameObject bar = bars.transform.GetChild(i).gameObject;
             //GameObject light = lights.transform.GetChild(i).gameObject;
@@ -98,7 +104,12 @@ public class RollingQTE : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //steelBar.transform.localPosition = new Vector3(timeCountdown, 0, 0);
+        timeCountdown -= Time.deltaTime;
+        if (timeCountdown < 0)
+        {
+            failMenu.SetActive(true);
+            Time.timeScale = 0;
+        }
         timeCount += Time.deltaTime;
         if (timeCount >= interval)
         {
@@ -139,17 +150,23 @@ public class RollingQTE : MonoBehaviour
     {
         state[currentIndex] = !state[currentIndex];
         direction = !direction;
+        int successCount = 0;
         for (int i = 0; i < barList.Count; i++)
         {
             if (state[i])
             {
                 barList[i].transform.DOLocalMoveY(moveDistance, 0.5f);
+                successCount++;
             }
             else
             {
                 barList[i].transform.DOLocalMoveY(0, 0.5f);
             }
-            
+        }
+        if (successCount == barList.Count - 1)
+        {
+            successMenu.SetActive(true);
+            Time.timeScale = 0;
         }
        
     }
