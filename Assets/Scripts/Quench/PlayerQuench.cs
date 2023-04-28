@@ -26,6 +26,7 @@ public class PlayerQuench : MonoBehaviour
     public TextMeshProUGUI scorechangeup;       
     public TextMeshProUGUI scorechangedown;
     public TextMeshProUGUI plus3;
+    public TextMeshProUGUI timetext;
 
 
     public int score;
@@ -39,7 +40,7 @@ public class PlayerQuench : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        score = 5;
+        score = 10;
         scrollBase = "scroll";
         isTrigger = false;
         initPos = transform.position;
@@ -57,7 +58,7 @@ public class PlayerQuench : MonoBehaviour
                 scrollbarList[i].value = PlayerPrefs.GetFloat(scrollBase + i);
             }
         }
-        adjusttimetext.text = "剩余次数：" + adjusttime;
+        adjusttimetext.text = "" + adjusttime;
 
     }
 
@@ -66,6 +67,7 @@ public class PlayerQuench : MonoBehaviour
         if (isTrigger)
         {
             timeCount += Time.deltaTime;
+            timetext.text = "" + timeCount.ToString("0.0");
         }
         //成功淬火
         /*if (Vector3.Distance(transform.position, destination.position) < destTolerance)
@@ -102,7 +104,7 @@ public class PlayerQuench : MonoBehaviour
                 PlayerPrefs.SetFloat(scrollBase + i, scrollbarList[i].value);
             }
             adjusttime--;
-            adjusttimetext.text = "剩余次数：" + adjusttime;
+            adjusttimetext.text = "" + adjusttime;
 
             rb.AddForce(new Vector2(horizontalForce, 0), ForceMode2D.Impulse);
             timeCount = 0;
@@ -142,6 +144,7 @@ public class PlayerQuench : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)//增益与障碍触碰
     {
+
         if (collision.CompareTag("Reward"))
         {
             score += rewardvalue;
@@ -158,7 +161,7 @@ public class PlayerQuench : MonoBehaviour
             scorechangedown.rectTransform.position = transform.position;
             FlyTo(scorechangedown);//跳字
         }
-        scoretext.text = "分数：" + score;
+        scoretext.text = "" + score;
 
     }
     private void Successe()//成功淬火
