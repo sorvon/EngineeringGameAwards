@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using DG.Tweening;
 using TMPro;
+using Cinemachine;
 
 [RequireComponent(typeof(LineRenderer))]
 public class StoveManager : MonoBehaviour, IDropHandler
@@ -60,6 +61,8 @@ public class StoveManager : MonoBehaviour, IDropHandler
         {
             audioSource.Play();
             MaterialManager.lockHover = true;
+            
+            Camera.main.GetComponent<CinemachineBrain>().enabled = true;
             Sequence sequence = DOTween.Sequence();
             Vector3[] postions = new Vector3[lineRenderer.positionCount];
             lineRenderer.GetPositions(postions);
@@ -88,6 +91,7 @@ public class StoveManager : MonoBehaviour, IDropHandler
                 {
                     MaterialManager.lockHover = false;
                     audioSource.Pause();
+                    Camera.main.GetComponent<CinemachineBrain>().enabled = false;
                 });
             hasMatrial = false;
         }
