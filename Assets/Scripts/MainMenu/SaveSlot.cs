@@ -13,6 +13,7 @@ public class SaveSlot : MonoBehaviour
     [SerializeField] private TextMeshProUGUI lastTimeText;
     [SerializeField] private TextMeshProUGUI durationTimeText;
     [SerializeField] private ConfirmDialog confirmDialog;
+    [SerializeField] private Animator sceneTransition;
     public bool HasData { get; private set; }
     SaveSlot()
     {
@@ -49,7 +50,8 @@ public class SaveSlot : MonoBehaviour
             DataPersistenceManager.instance.NewGame();
         }
         DataPersistenceManager.instance.SaveGame();
-        SceneManager.LoadScene("Base");
+        sceneTransition.SetTrigger("Start");
+        StartCoroutine(LoadScene("Base"));
     }
 
     public void OnDeleteSlotClicked()
@@ -65,6 +67,11 @@ public class SaveSlot : MonoBehaviour
                 SetData(null);
             },
             () => { });
-        
+    }
+
+    IEnumerator LoadScene(string name)
+    {
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene(name);
     }
 }

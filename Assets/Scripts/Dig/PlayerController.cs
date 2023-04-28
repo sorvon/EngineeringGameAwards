@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float velocityDecreaseBase = 0.75f;
     [SerializeField] StateManager stateManager;
     [SerializeField] GameObject skillTree;
+    [Header("“Ù–ß")]
+    [SerializeField] AudioClip skillOpenAudio;
     float velocity;
     float hitDamage;
     private Rigidbody2D rb;
@@ -21,6 +23,7 @@ public class PlayerController : MonoBehaviour
     private bool skillTreeTrigger;
     private float hitIntervalTimeCount;
     private bool moveLock;
+    private AudioSource audioSource;
 
     private void Awake()
     {
@@ -33,6 +36,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         playerCollect = GetComponentInChildren<PlayerCollect>();
         playerAnimator = GetComponentInChildren<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -41,22 +45,24 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetButtonDown("Fire1") && skillTree.activeSelf == false)
             {
+                audioSource.PlayOneShot(skillOpenAudio);
                 skillTree.SetActive(true);
+                Time.timeScale = 0;
             }
             else if (Input.GetButtonDown("Fire2") && skillTree.activeSelf == true)
             {
                 skillTree.SetActive(false);
-                
+                Time.timeScale = 1;
             }
         }
-        if (skillTree.activeSelf)
-        {
-            Time.timeScale = 0;
-        }
-        else
-        {
-            Time.timeScale = 1;
-        }
+        //if (skillTree.activeSelf)
+        //{
+        //    Time.timeScale = 0;
+        //}
+        //else
+        //{
+        //    Time.timeScale = 1;
+        //}
         
     }
     private void FixedUpdate()
@@ -176,5 +182,11 @@ public class PlayerController : MonoBehaviour
         {
             skillTreeTrigger = false;
         }
+    }
+
+    public void SetVelocityMultiplying(float value)
+    {
+        velocity = velocityBase * value;
+        print(velocity);
     }
 }

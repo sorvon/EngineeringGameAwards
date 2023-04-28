@@ -5,12 +5,21 @@ using UnityEngine.SceneManagement;
 using DG.Tweening;
 public class ChangeScene : MonoBehaviour
 {
+    [SerializeField] Animator animator;
     public void ToScene(string name)
     {
-        SceneManager.LoadScene(name);
+        animator.SetTrigger("Start");
+        StartCoroutine(LoadScene(name));
     }
     public void ReloadScene()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        animator.SetTrigger("Start");
+        StartCoroutine(LoadScene(SceneManager.GetActiveScene().name));
+    }
+
+    IEnumerator LoadScene(string name)
+    {
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene(name);
     }
 }

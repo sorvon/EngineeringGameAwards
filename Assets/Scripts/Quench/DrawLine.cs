@@ -39,7 +39,7 @@ public class DrawLine : MonoBehaviour
             gradient.SetKeys(
                 new GradientColorKey[] { new GradientColorKey(c1, 0.0f), new GradientColorKey(c2, 1.0f) },
                 new GradientAlphaKey[] { new GradientAlphaKey(0.0f, 0.0f), new GradientAlphaKey(1.0f, 1.0f) }
-                );
+            );
             lineRenderer.colorGradient = gradient;
         }
     }
