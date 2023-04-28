@@ -63,6 +63,24 @@ public class MaterialManager : MonoBehaviour,
                     rawPoints[i] = new Vector3(x, y, 0);
                 }
                 break;
+            case "xsin":
+                rawPoints = new Vector3[pointNum + 1];
+                for (int i = 0; i < rawPoints.Length; i++)
+                {
+                    float x = (float)i / pointNum * width;
+                    float y = x * Mathf.Sin(x / width * 2 * Mathf.PI) * height;
+                    rawPoints[i] = new Vector3(x, y, 0);
+                }
+                break;
+            case "-xsin":
+                rawPoints = new Vector3[pointNum + 1];
+                for (int i = 0; i < rawPoints.Length; i++)
+                {
+                    float x = (float)i / pointNum * width;
+                    float y = -x * Mathf.Sin(x / width * 2 * Mathf.PI) * height;
+                    rawPoints[i] = new Vector3(x, y, 0);
+                }
+                break;
             default:
                 pointNum = lineRenderer.positionCount;
                 rawPoints = new Vector3[pointNum];

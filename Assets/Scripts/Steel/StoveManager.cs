@@ -2,6 +2,7 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using DG.Tweening;
 using TMPro;
@@ -10,10 +11,13 @@ using Cinemachine;
 [RequireComponent(typeof(LineRenderer))]
 public class StoveManager : MonoBehaviour, IDropHandler
 {
+    [Header("Config")]
     public float speed = 2;
     public TextMeshProUGUI oxygenUI;
     public static float rotate = 0;
-    public static int oxygen = 4;
+    public static int oxygen = 2;
+    [SerializeField] Button finishButton;
+    [SerializeField] TargetManager targetManager;
     private LineRenderer lineRenderer;
     private bool hasMatrial;
     private GameObject player;
@@ -92,6 +96,7 @@ public class StoveManager : MonoBehaviour, IDropHandler
                     MaterialManager.lockHover = false;
                     audioSource.Pause();
                     Camera.main.GetComponent<CinemachineBrain>().enabled = false;
+                    finishButton.interactable = targetManager.CheckFinish();
                 });
             hasMatrial = false;
         }
@@ -120,7 +125,8 @@ public class StoveManager : MonoBehaviour, IDropHandler
         {
             rotate = 0;
         }
-        button.rotation = Quaternion.AngleAxis(rotate-90, Vector3.forward);
+        button.transform.DORotate(new Vector3(0, 0, rotate), 0.2f);
+        //button.rotation = Quaternion.AngleAxis(rotate-90, Vector3.forward);
         if (!hasMatrial) return;
         if (rawPoints == null) return;
         

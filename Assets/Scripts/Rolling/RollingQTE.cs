@@ -41,6 +41,7 @@ public class RollingQTE : MonoBehaviour
 
     void Awake()
     {
+        Time.timeScale = 1;
         timeCount = 0;
         direction = true;
         if (overrideDifficulty)
@@ -104,11 +105,15 @@ public class RollingQTE : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (successMenu.activeSelf == true || failMenu.activeSelf == true)
+        {
+            return;
+        }
         timeCountdown -= Time.deltaTime;
         if (timeCountdown < 0)
         {
             failMenu.SetActive(true);
-            Time.timeScale = 0;
+            steelBar.transform.DOKill();
         }
         timeCount += Time.deltaTime;
         if (timeCount >= interval)
@@ -148,6 +153,10 @@ public class RollingQTE : MonoBehaviour
 
     public void RollingTrigger()
     {
+        if (successMenu.activeSelf == true || failMenu.activeSelf == true)
+        {
+            return;
+        }
         state[currentIndex] = !state[currentIndex];
         direction = !direction;
         int successCount = 0;
@@ -155,19 +164,18 @@ public class RollingQTE : MonoBehaviour
         {
             if (state[i])
             {
-                barList[i].transform.DOLocalMoveY(moveDistance, 0.5f);
+                barList[i].transform.DOLocalMoveY(moveDistance, 0.5f).timeScale = 1;
                 successCount++;
             }
             else
             {
-                barList[i].transform.DOLocalMoveY(0, 0.5f);
+                barList[i].transform.DOLocalMoveY(0, 0.5f).timeScale = 1;
             }
         }
-        if (successCount == barList.Count - 1)
+        if (successCount == barList.Count)
         {
             successMenu.SetActive(true);
-            Time.timeScale = 0;
+            steelBar.transform.DOKill();
         }
-       
     }
 }

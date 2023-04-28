@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DYH/StartScene.unity
     guid: e4fc274709d8d6940ad4325bc418f46b
+  - enabled: 1
+    path: Assets/Scenes/Quench DZH.unity
+    guid: b564173dc75de6f46a7c2c59b4195c8f
   m_configObjects: {}

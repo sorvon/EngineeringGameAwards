@@ -16,17 +16,28 @@ public class TargetManager : MonoBehaviour
 
     public void OnFinishClicked()
     {
+        if (CheckFinish())
+        {
+            successMenu.SetActive(true);
+        }
+        else
+        {
+            failMenu.SetActive(true);
+        }
+    }
+
+    public bool CheckFinish()
+    {
         var player = GameObject.FindWithTag("Player");
         var playerPos = player.transform.position;
         foreach (var target in targetList)
         {
             if (target == transform) continue;
-            if((playerPos - target.position).magnitude < tolerance)
+            if ((playerPos - target.position).magnitude < tolerance)
             {
-                successMenu.SetActive(true);
-                return;
+                return true;
             }
         }
-        failMenu.SetActive(true);
+        return false;
     }
 }
