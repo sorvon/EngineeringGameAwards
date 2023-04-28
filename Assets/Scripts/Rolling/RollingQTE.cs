@@ -23,6 +23,8 @@ public class RollingQTE : MonoBehaviour
     [SerializeField] float moveDistance = -150;
     [SerializeField] GameObject bars;
     [SerializeField] GameObject lights;
+    [SerializeField] float timeCountdown = 30f;
+    [SerializeField] GameObject steelBar;
     List<GameObject> barList = new();
     List<GameObject> lightList = new();
     float interval;
@@ -88,10 +90,15 @@ public class RollingQTE : MonoBehaviour
         }
         
     }
+    private void Start()
+    {
+        steelBar.GetComponent<RectTransform>().DOAnchorPosX(0, timeCountdown);
+    }
 
     // Update is called once per frame
     void Update()
     {
+        //steelBar.transform.localPosition = new Vector3(timeCountdown, 0, 0);
         timeCount += Time.deltaTime;
         if (timeCount >= interval)
         {

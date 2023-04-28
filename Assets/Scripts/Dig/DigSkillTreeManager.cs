@@ -13,6 +13,7 @@ public class DigSkillTreeManager : MonoBehaviour
     public int skill_3 = 0;
     [SerializeField] GameObject skill_ui_3;
     [SerializeField] StateManager stateManager;
+    [SerializeField] PlayerController player;
 
     private void Start()
     {
@@ -83,7 +84,18 @@ public class DigSkillTreeManager : MonoBehaviour
         {
             buttons_3[skill_3].interactable = true;
         }
-
+        if (skill_2 == 1)
+        {
+            player.SetVelocityMultiplying(1.25f);
+        }
+        else if (skill_2 == 2)
+        {
+            player.SetVelocityMultiplying(1.5375f);
+        }
+        else if (skill_2 == 3)
+        {
+            player.SetVelocityMultiplying(1.891125f);
+        }
     }
     public void OnBackClicked()
     {

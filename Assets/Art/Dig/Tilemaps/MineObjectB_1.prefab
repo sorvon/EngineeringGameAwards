@@ -50,6 +50,8 @@ MonoBehaviour:
   - {fileID: 8966681643596023940, guid: a7bd2d195bec3464995c5408c8337a0e, type: 3}
   min: 1
   max: 3
+  digAudio: {fileID: 8300000, guid: 6b77ee282f5511c4eb90aced75ee07c2, type: 3}
+  destroyAudio: {fileID: 8300000, guid: d77a84d6de3255f4d8c500e851361f96, type: 3}
 --- !u!61 &9205738977652400152
 BoxCollider2D:
   m_ObjectHideFlags: 0

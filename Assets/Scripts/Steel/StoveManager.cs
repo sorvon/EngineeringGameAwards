@@ -17,10 +17,12 @@ public class StoveManager : MonoBehaviour, IDropHandler
     private bool hasMatrial;
     private GameObject player;
     private Vector3[] rawPoints;
+    AudioSource audioSource;
     
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
+        audioSource = GetComponent<AudioSource>();
         hasMatrial = false;
     }
     // Start is called before the first frame update
@@ -30,11 +32,6 @@ public class StoveManager : MonoBehaviour, IDropHandler
         oxygenUI.text = Convert.ToString(oxygen);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     void IDropHandler.OnDrop(PointerEventData eventData)
     {
@@ -54,12 +51,14 @@ public class StoveManager : MonoBehaviour, IDropHandler
         lineRenderer.positionCount = points.Length;
         lineRenderer.SetPositions(points);
         hasMatrial = true;
+        MaterialManager.isDropped = true;
     }
 
     public void MoveTrigger()
     {
         if (hasMatrial)
         {
+            audioSource.Play();
             MaterialManager.lockHover = true;
             Sequence sequence = DOTween.Sequence();
             Vector3[] postions = new Vector3[lineRenderer.positionCount];
@@ -88,6 +87,7 @@ public class StoveManager : MonoBehaviour, IDropHandler
                 .OnComplete(() =>
                 {
                     MaterialManager.lockHover = false;
+                    audioSource.Pause();
                 });
             hasMatrial = false;
         }
@@ -98,6 +98,29 @@ public class StoveManager : MonoBehaviour, IDropHandler
         rotate = value;
         if (!hasMatrial) return;
         if (rawPoints == null) return;
+        Vector3[] points = new Vector3[Mathf.CeilToInt(rawPoints.Length * oxygen / 4.0f)];
+        for (int i = 0; i < points.Length; i++)
+        {
+            points[i] = Quaternion.AngleAxis(rotate, Vector3.forward) * rawPoints[i];
+            points[i] = points[i] + player.transform.position;
+        }
+
+        lineRenderer.positionCount = points.Length;
+        lineRenderer.SetPositions(points);
+    }
+
+    public void TriggerRotate(Transform button)
+    {
+        rotate-=90;
+        if (rotate == -360)
+        {
+            rotate = 0;
+        }
+        button.rotation = Quaternion.AngleAxis(rotate-90, Vector3.forward);
+        if (!hasMatrial) return;
+        if (rawPoints == null) return;
+        
+        //print(rotate);
         Vector3[] points = new Vector3[Mathf.CeilToInt(rawPoints.Length * oxygen / 4.0f)];
         for (int i = 0; i < points.Length; i++)
         {
