@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    public AudioClip buttonDown;
-    public AudioClip quenching;
-    public AudioClip scoreUp;
-    public AudioClip scoreDown;
+    public AudioSource buttonDown;
+    public AudioSource quenching;
+    public AudioSource scoreUp;
+    public AudioSource scoreDown;
 
     // Start is called before the first frame update
     void Start()
@@ -20,5 +20,9 @@ public class AudioManager : MonoBehaviour
     void Update()
     {
         
+    }
+    public void AudioPlay(AudioSource audiosource)
+    {
+        audiosource.Play();
     }
 }

@@ -8,7 +8,12 @@ using DG.Tweening;
 
 public class PlayerQuench : MonoBehaviour
 {
-    public float horizontalForce = 5;
+    public AudioSource scoreUpSound;
+    public AudioSource scoreDownSound;
+    public AudioSource usingScrollbarSound;
+    public AudioSource quenchingSound;
+
+    public float horizontalForce = 10;
     public float verticalForce = 1;
     public float verticalForceInterval = 1;
     public float destTolerance = 1;
@@ -97,7 +102,7 @@ public class PlayerQuench : MonoBehaviour
     public void Trigger()//¿ªÊ¼´ã»ð
     {
         //rb.velocity = new Vector2(5, 0);
-        if (adjusttime > 0)
+        if (adjusttime > 0 && !isTrigger)
         {
             for (int i = 0; i < scrollbarList.Length; i++)
             {
@@ -106,8 +111,9 @@ public class PlayerQuench : MonoBehaviour
             adjusttime--;
             adjusttimetext.text = "" + adjusttime;
 
-            rb.AddForce(new Vector2(horizontalForce, 0), ForceMode2D.Impulse);
+            rb.AddForce(new Vector2(horizontalForce, 0), ForceMode2D.Impulse); 
             timeCount = 0;
+            quenchingSound.Play(); 
             isTrigger = true;
         }
     }
@@ -147,14 +153,17 @@ public class PlayerQuench : MonoBehaviour
 
         if (collision.CompareTag("Reward"))
         {
+            scoreUpSound.Play();
             score += rewardvalue;
             collision.gameObject.SetActive(false);
             scorechangeup.gameObject.SetActive(true);
             scorechangeup.rectTransform.position = transform.position;
             FlyTo(scorechangeup);//Ìø×Ö
+            
         }
         if (collision.CompareTag("Punishment"))
         {
+            scoreDownSound.Play();
             score -= punishmentvalue;
             collision.gameObject.SetActive(false);
             scorechangedown.gameObject.SetActive(true);
