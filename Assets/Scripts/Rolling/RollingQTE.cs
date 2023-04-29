@@ -86,9 +86,9 @@ public class RollingQTE : MonoBehaviour
             }
             else
             {
-                bars.transform.GetChild(shuffleArr[i]).gameObject.SetActive(false);
-                lights.transform.GetChild(shuffleArr[i]).gameObject.SetActive(false);
-                bases.transform.GetChild(shuffleArr[i]).gameObject.SetActive(false);
+                bars.transform.GetChild(shuffleArr[i]).gameObject.transform.DOLocalMoveY(moveDistance, 0.0f);
+                lights.transform.GetChild(shuffleArr[i]).gameObject.GetComponent<Image>().color = Color.blue ;
+                //bases.transform.GetChild(shuffleArr[i]).gameObject.SetActive(false);
             }
             //GameObject bar = bars.transform.GetChild(i).gameObject;
             //GameObject light = lights.transform.GetChild(i).gameObject;
@@ -164,12 +164,12 @@ public class RollingQTE : MonoBehaviour
         {
             if (state[i])
             {
-                barList[i].transform.DOLocalMoveY(moveDistance, 0.5f).timeScale = 1;
+                barList[i].transform.DOLocalMoveY(moveDistance, 0.5f);
                 successCount++;
             }
             else
             {
-                barList[i].transform.DOLocalMoveY(0, 0.5f).timeScale = 1;
+                barList[i].transform.DOLocalMoveY(0, 0.5f);
             }
         }
         if (successCount == barList.Count)
