@@ -26,6 +26,10 @@ public class CameraController : MonoBehaviour, IPointerDownHandler, IPointerUpHa
             Vector3 newMousePos = Input.mousePosition;
             Vector3 delta = newMousePos - lastMousePos;
             cam.transform.position += CalcDragLength(cam, delta, distance);
+            //var clamp_x = Mathf.Clamp(cam.transform.position.x, -50f + cam.orthographicSize* 1302.8f / 681.47f, 50f - cam.orthographicSize * 1302.8f / 681.47f);
+            var clamp_x = Mathf.Clamp(cam.transform.position.x, -36.7f + cam.orthographicSize, 45f - cam.orthographicSize );
+            var clamp_y = Mathf.Clamp(cam.transform.position.y, -35f + cam.orthographicSize, 30f - cam.orthographicSize);
+            cam.transform.position = new Vector3(clamp_x, clamp_y, cam.transform.position.z);
             lastMousePos = newMousePos;
         }
         if (isHover)
@@ -39,6 +43,9 @@ public class CameraController : MonoBehaviour, IPointerDownHandler, IPointerUpHa
                 //distance = Mathf.Clamp(distance, minDistance, maxDistance);
                 cam.orthographicSize -= scrollWheelValue * zoomSpeed;
                 cam.orthographicSize = Mathf.Clamp(cam.orthographicSize, 2f, 20f);
+                var clamp_x = Mathf.Clamp(cam.transform.position.x, -36.7f + cam.orthographicSize, 45f - cam.orthographicSize);
+                var clamp_y = Mathf.Clamp(cam.transform.position.y, -35f + cam.orthographicSize, 30f - cam.orthographicSize);
+                cam.transform.position = new Vector3(clamp_x, clamp_y, cam.transform.position.z);
                 //cam.transform.position = lookAroundPos - cam.transform.rotation * (Vector3.forward * distance);
 
                 // 相机距离改变后需同时修改fov或orthographicSize以及投影矩阵，保证正交/透视视图切换效果

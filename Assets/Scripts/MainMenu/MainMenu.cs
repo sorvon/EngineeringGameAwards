@@ -26,8 +26,12 @@ public class MainMenu : MonoBehaviour
         //DataPersistenceManager.instance.NewGame();
         //SceneManager.LoadScene("SampleScene");
     }
-    public void OnContinueGameClicked()
+    public void OnExitGame()//定义一个退出游戏的方法
     {
-
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;//如果是在unity编译器中
+#else
+        Application.Quit();//否则在打包文件中
+#endif
     }
 }

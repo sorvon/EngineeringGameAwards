@@ -430,6 +430,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6a8e3b864a787a4b9644b8fa168eb45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreUpSound: {fileID: 0}
+  scoreDownSound: {fileID: 0}
+  usingScrollbarSound: {fileID: 0}
+  quenchingSound: {fileID: 0}
   horizontalForce: 2
   verticalForce: 1
   verticalForceInterval: 1
@@ -444,7 +448,25 @@ MonoBehaviour:
   destination: {fileID: 1669720137}
   successPanel: {fileID: 1148902488}
   failurePanel: {fileID: 384025236}
+  steelImage: {fileID: 0}
+  steelSprites: []
+  scoretext: {fileID: 0}
+  punishmentvalue: 0
+  rewardvalue: 0
+  statistics: {fileID: 0}
+  adjusttimetext: {fileID: 0}
+  scorechangeup: {fileID: 0}
+  scorechangedown: {fileID: 0}
+  plus3: {fileID: 0}
+  timetext: {fileID: 0}
+  levels:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  overrideDifficulty: 0
+  defaultDifficulty: 1
   score: 0
+  isTrigger: 0
 --- !u!1 &178789985
 GameObject:
   m_ObjectHideFlags: 0
@@ -3576,6 +3598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5613983395c362544bdc685dc53f2818, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
 --- !u!1 &1718178874
 GameObject:
   m_ObjectHideFlags: 0
@@ -3661,7 +3684,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 12.15
+  m_fontSize: 33.15
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4146,7 +4169,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

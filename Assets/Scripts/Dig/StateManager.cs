@@ -19,8 +19,8 @@ public class StateManager : MonoBehaviour, IDataPersistence
     [SerializeField] TextMeshProUGUI powerText;
     [SerializeField] TextMeshProUGUI mineTextA;
     [SerializeField] TextMeshProUGUI mineTextB;
-    private float timeCountdown;
-    private float powerCountdown;
+    public float timeCountdown { get; private set; }
+    public float powerCountdown { get; private set; }
 
     void Awake()
     {

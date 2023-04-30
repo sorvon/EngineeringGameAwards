@@ -50,6 +50,7 @@ public class FileDataHandler
         try
         {
             Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
+            File.Delete(fullPath);
             string dataToStore = JsonUtility.ToJson(gameData, true);
             if (useEncryption)
             {

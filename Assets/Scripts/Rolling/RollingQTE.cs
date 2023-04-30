@@ -28,6 +28,11 @@ public class RollingQTE : MonoBehaviour
     [SerializeField] GameObject steelBar;
     [SerializeField] GameObject successMenu;
     [SerializeField] GameObject failMenu;
+    [Header("“Ù–ß")]
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip upClip;
+    [SerializeField] AudioClip downClip;
+
     List<GameObject> barList = new();
     List<GameObject> lightList = new();
     List<GameObject> baseList = new();
@@ -41,7 +46,7 @@ public class RollingQTE : MonoBehaviour
 
     void Awake()
     {
-        Time.timeScale = 1;
+        Time.timeScale = 0;
         timeCount = 0;
         direction = true;
         if (overrideDifficulty)
@@ -159,6 +164,14 @@ public class RollingQTE : MonoBehaviour
         }
         state[currentIndex] = !state[currentIndex];
         direction = !direction;
+        if (state[currentIndex])
+        {
+            audioSource.PlayOneShot(downClip);
+        }
+        else
+        {
+            audioSource.PlayOneShot(upClip);
+        }
         int successCount = 0;
         for (int i = 0; i < barList.Count; i++)
         {
@@ -166,10 +179,12 @@ public class RollingQTE : MonoBehaviour
             {
                 barList[i].transform.DOLocalMoveY(moveDistance, 0.5f);
                 successCount++;
+                
             }
             else
             {
                 barList[i].transform.DOLocalMoveY(0, 0.5f);
+                
             }
         }
         if (successCount == barList.Count)

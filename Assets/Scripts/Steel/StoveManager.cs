@@ -9,20 +9,23 @@ using TMPro;
 using Cinemachine;
 
 [RequireComponent(typeof(LineRenderer))]
-public class StoveManager : MonoBehaviour, IDropHandler
+public class StoveManager : MonoBehaviour, IDropHandler, IDataPersistence
 {
     [Header("Config")]
     public float speed = 2;
     public TextMeshProUGUI oxygenUI;
     public static float rotate = 0;
     public static int oxygen = 2;
+    [SerializeField] Animator finishAnimator;
     [SerializeField] Button finishButton;
     [SerializeField] TargetManager targetManager;
     [SerializeField] GameObject failMenu;
+    [SerializeField] GameObject level_2_disable;
     private LineRenderer lineRenderer;
     private bool hasMatrial;
     private GameObject player;
     private Vector3[] rawPoints;
+    private int ProcessLevel = 1;
     AudioSource audioSource;
     
     private void Awake()
@@ -36,9 +39,18 @@ public class StoveManager : MonoBehaviour, IDropHandler
     {
         player = GameObject.FindWithTag("Player");
         oxygenUI.text = Convert.ToString(oxygen);
+        if (ProcessLevel == 3)
+        {
+            level_2_disable.SetActive(false);
+        }
     }
 
-
+    private void Update()
+    {
+        var isFinish = targetManager.CheckFinish();
+        finishButton.interactable = isFinish;
+        finishAnimator.SetBool("IsFinish", isFinish);
+    }
     void IDropHandler.OnDrop(PointerEventData eventData)
     {
         var incomeLineRenderer = eventData.pointerDrag.GetComponent<LineRenderer>();
@@ -97,7 +109,9 @@ public class StoveManager : MonoBehaviour, IDropHandler
                     MaterialManager.lockHover = false;
                     audioSource.Pause();
                     Camera.main.GetComponent<CinemachineBrain>().enabled = false;
-                    finishButton.interactable = targetManager.CheckFinish();
+                    //var isFinish = targetManager.CheckFinish();
+                    //finishButton.interactable = isFinish;
+                    //print(isFinish);
                 });
             hasMatrial = false;
         }
@@ -168,5 +182,15 @@ public class StoveManager : MonoBehaviour, IDropHandler
         lineRenderer.positionCount = 0;
         audioSource.Stop();
         failMenu.SetActive(true);
+    }
+
+    void IDataPersistence.LoadData(GameData gameData)
+    {
+        ProcessLevel = gameData.ProcessLevel;
+    }
+
+    void IDataPersistence.SaveData(GameData gameData)
+    {
+        gameData.ProcessLevel = ProcessLevel;
     }
 }

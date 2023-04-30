@@ -11,6 +11,7 @@ public class AncientManager : MonoBehaviour
     [SerializeField] SpriteRenderer srcSprite;
     [SerializeField] SpriteRenderer dstSprite;
     [SerializeField] GameObject ancient;
+    [SerializeField] Sprite ancientTileSprite;
 
     bool isTriggered = false;  
     private void Start()
@@ -29,7 +30,10 @@ public class AncientManager : MonoBehaviour
     {
         if (collision.CompareTag("DestroyableTile"))
         {
-            tiles.Add(collision.gameObject);
+            var tileGO = collision.gameObject;
+            tileGO.GetComponent<SpriteRenderer>().sprite = ancientTileSprite;
+            tileGO.GetComponent<SpriteRenderer>().color = new Color(1,1,1,0.5f); 
+            tiles.Add(tileGO);
         }
     }
     private void OnTriggerStay2D(Collider2D collision)

@@ -8,11 +8,12 @@ using DG.Tweening;
 
 public class PlayerQuench : MonoBehaviour
 {
+    [Header("音频")]
     public AudioSource scoreUpSound;
     public AudioSource scoreDownSound;
     public AudioSource usingScrollbarSound;
     public AudioSource quenchingSound;
-
+    [Header("Config")]
     public float horizontalForce = 10;
     public float verticalForce = 1;
     public float verticalForceInterval = 1;
@@ -22,16 +23,25 @@ public class PlayerQuench : MonoBehaviour
     public Transform destination;
     public GameObject successPanel;
     public GameObject failurePanel;
+    [SerializeField] Image steelImage;
+    [SerializeField] Sprite[] steelSprites;
     public Text scoretext;
     public int punishmentvalue;
     public int rewardvalue;                   //增益加分分值
     public TextMeshProUGUI statistics;        //表面质量等包装数据
     public TextMeshProUGUI adjusttimetext;    //剩余调整次数
+    [Header("分数跳字组件")]
     //分数跳字组件
     public TextMeshProUGUI scorechangeup;       
     public TextMeshProUGUI scorechangedown;
     public TextMeshProUGUI plus3;
     public TextMeshProUGUI timetext;
+
+    [Header("难度GameObject")]
+    [SerializeField] GameObject[] levels = new GameObject[3];
+    [Header("Debug")]
+    [SerializeField] bool overrideDifficulty;
+    [SerializeField] int defaultDifficulty = 1;
 
 
     public int score;
@@ -64,7 +74,24 @@ public class PlayerQuench : MonoBehaviour
             }
         }
         adjusttimetext.text = "" + adjusttime;
-
+        steelImage.sprite = steelSprites[PlayerPrefs.GetInt("steel_index", 0)];
+        if (overrideDifficulty)
+        {
+            PlayerPrefs.SetInt("difficulty", defaultDifficulty);
+        }
+        int difficulty = PlayerPrefs.GetInt("difficulty", defaultDifficulty);
+        score = 5 + 5 * difficulty;
+        for (int i = 0; i < levels.Length; i++)
+        {
+            if (i + 1 == difficulty)
+            {
+                levels[i].SetActive(true);
+            }
+            else
+            {
+                levels[i].SetActive(false);
+            }
+        }
     }
 
     void Update()

@@ -2,20 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.Rendering.Universal;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDataPersistence
 {
+    [Header("Config")]
     [SerializeField] float velocityBase = 10;
     [SerializeField] float hitInterval = 0.1f;
     [SerializeField] int hitDamageBase = 1;
     [SerializeField] float velocityDecreaseBase = 0.75f;
     [SerializeField] StateManager stateManager;
     [SerializeField] GameObject skillTree;
+    [SerializeField] GameObject successMenu;
+    [SerializeField] GameObject failMenu;
     [Header("ÒôÐ§")]
     [SerializeField] AudioClip skillOpenAudio;
-    float velocity;
-    float hitDamage;
+    [Header("ÄÑ¶ÈGameObject")]
+    [SerializeField] GameObject[] tileLevels = new GameObject[3];
+    [SerializeField] GameObject[] ancientLevels = new GameObject[3];
+    [SerializeField] SpriteRenderer backgroundSpriteRenderer;
+    [SerializeField] SpriteRenderer baseSpriteRenderer;
+    [SerializeField] SpriteRenderer gradientSpriteRenderer;
+    [SerializeField] Sprite backgroundSprite;
+    [SerializeField] Sprite baseSprite;
+    [SerializeField] Sprite gradientSprite;
+    [Header("Debug")]
+    [SerializeField] float velocity;
+    [SerializeField] float hitDamage;
+    [SerializeField] int digLevel = 1;
+    [SerializeField] int ancientNum = 0;
     private Rigidbody2D rb;
     private List<GameObject> destroyableTiles; 
     private PlayerCollect playerCollect;
@@ -38,9 +54,40 @@ public class PlayerController : MonoBehaviour
         playerAnimator = GetComponentInChildren<Animator>();
         audioSource = GetComponent<AudioSource>();
     }
+    private void Start()
+    {
+        if (digLevel >= 2)
+        {
+            backgroundSpriteRenderer.sprite = backgroundSprite;
+            baseSpriteRenderer.sprite = baseSprite;
+            gradientSpriteRenderer.sprite= gradientSprite;
+        }
+        if (digLevel > 3)
+        {
+            digLevel = 3;
+        }
+        for(int i = 0; i < tileLevels.Length; i++)
+        {
+            if (i+1 == digLevel)
+            {
+                tileLevels[i].SetActive(true);
+                ancientLevels[i].SetActive(true);
+            }
+            else
+            {
+                tileLevels[i].SetActive(false);
+                ancientLevels[i].SetActive(false);
+            }
+        }
+    }
 
     private void Update()
     {
+        if (stateManager.timeCountdown<0||stateManager.powerCountdown<0)
+        {
+            failMenu.SetActive(true);
+            Time.timeScale = 0;
+        }
         if (skillTreeTrigger)
         {
             if (Input.GetButtonDown("Fire1") && skillTree.activeSelf == false)
@@ -61,7 +108,23 @@ public class PlayerController : MonoBehaviour
     {
         hitIntervalTimeCount += Time.fixedDeltaTime;
         var v = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        print(v);
+        //print(v);
+
+        for (int i = 0; i < 8; i++)
+        {
+            float rad = i * Mathf.Deg2Rad;
+            RaycastHit2D raycastHit = Physics2D.Raycast(transform.position, new Vector2(Mathf.Cos(rad*45), Mathf.Sin(rad*45)), 5f, LayerMask.GetMask("DestroyableTile"));
+            if (raycastHit.collider != null)
+            {
+                //Debug.Log(raycastHit.collider.name);
+                if (raycastHit.collider.CompareTag("DestroyableTile"))
+                {
+                    raycastHit.collider.GetComponent<ShadowCaster2D>().enabled = false;
+                }
+            }
+        }
+
+
         if (! moveLock)
         {
             rb.velocity = Mathf.Pow(velocityDecreaseBase, playerCollect.collectedList.Count) * velocity * v;
@@ -152,11 +215,20 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.CompareTag("MineCollector"))
         {
+            if (playerCollect.HasAncient())
+            {
+                digLevel++;
+                ancientNum++;
+                DataPersistenceManager.instance.SaveGame();
+                successMenu.SetActive(true);
+                Time.timeScale = 0;
+            }
             playerCollect.Collect(out int numA, out int numB);
             stateManager.MineAdd(numA, numB);
         }
         if (collision.CompareTag("SkillTreeTrigger"))
         {
+            collision.GetComponent<SpriteRenderer>().enabled = true;
             skillTreeTrigger = true;
         }
     }
@@ -165,6 +237,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.CompareTag("Base"))
         {
+            
             stateManager.PowerRecover();
         }
     }
@@ -173,6 +246,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.CompareTag("SkillTreeTrigger"))
         {
+            collision.GetComponent<SpriteRenderer>().enabled = false;
             skillTreeTrigger = false;
         }
     }
@@ -180,6 +254,26 @@ public class PlayerController : MonoBehaviour
     public void SetVelocityMultiplying(float value)
     {
         velocity = velocityBase * value;
-        print(velocity);
+        //print(velocity);
+    }
+
+    public void SetHitDamageMultiplying(float value)
+    {
+        hitDamage = hitDamageBase * value;
+    }
+    public void SetVelocityDecreaseBase(float value)
+    {
+        velocityDecreaseBase = value;
+    }
+    void IDataPersistence.LoadData(GameData gameData)
+    {
+        digLevel = gameData.digLevel;
+        ancientNum = gameData.ancientNum;
+    }
+
+    void IDataPersistence.SaveData(GameData gameData)
+    {
+        gameData.digLevel = digLevel;
+        gameData.ancientNum = ancientNum;
     }
 }

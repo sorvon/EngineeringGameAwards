@@ -96,6 +96,32 @@ public class DigSkillTreeManager : MonoBehaviour
         {
             player.SetVelocityMultiplying(1.891125f);
         }
+
+        if (skill_1 == 1)
+        {
+            player.SetHitDamageMultiplying(3f);
+        }
+        else if (skill_1 == 2)
+        {
+            player.SetHitDamageMultiplying(6f);
+        }
+        else if (skill_1 == 3)
+        {
+            player.SetHitDamageMultiplying(14f);
+        }
+
+        if (skill_3 == 1)
+        {
+            player.SetVelocityDecreaseBase(0.8f);
+        }
+        else if (skill_3 == 2)
+        {
+            player.SetVelocityDecreaseBase(0.85f);
+        }
+        else if (skill_3 == 3)
+        {
+            player.SetVelocityDecreaseBase(0.9f);
+        }
     }
     public void OnBackClicked()
     {

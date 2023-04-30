@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class PlayerCollect : MonoBehaviour
 {
+    [Header("Config")]
     public float collectInterval = 0.5f;
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip collectClip;
+    [SerializeField] AudioClip releaseClip;
+    [Header("Debug")]
     public List<GameObject> collectList;
     public List<GameObject> collectedList;
     private Rigidbody2D rb;
@@ -29,6 +34,7 @@ public class PlayerCollect : MonoBehaviour
                 Fire1HoldTime = 0;
                 foreach (var item in collectList)
                 {
+                    audioSource.PlayOneShot(collectClip);
                     if (item.TryGetComponent<SpringJoint2D>(out var joint))
                     {
                         if (joint.enabled)
@@ -83,6 +89,10 @@ public class PlayerCollect : MonoBehaviour
                     particleSystem.Stop();
                 }
             }
+            if (collectedList.Count != 0)
+            {
+                audioSource.PlayOneShot(releaseClip);
+            }
             collectedList.RemoveRange(0, collectedList.Count);
         }
         else if (Input.GetButtonDown("Fire3"))
@@ -119,11 +129,28 @@ public class PlayerCollect : MonoBehaviour
                 numB++;
             }
         }
+        if (collectedList.Count != 0)
+        {
+            audioSource.PlayOneShot(releaseClip);
+        } 
         foreach (var item in collectedList)
         {
             Destroy(item);
         }
         collectedList.RemoveRange(0, collectedList.Count);
+        
+    }
+
+    public bool HasAncient()
+    {
+        foreach (var item in collectedList)
+        {
+            if (item.CompareTag("Ancient"))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void OnTriggerStay2D(Collider2D collision)

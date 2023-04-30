@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TargetManager : MonoBehaviour
+public class TargetManager : MonoBehaviour, IDataPersistence
 {
     [Header("Config")]
     [SerializeField] private float tolerance = 0.1f;
@@ -10,24 +10,22 @@ public class TargetManager : MonoBehaviour
     [SerializeField] private GameObject failMenu;
     [SerializeField] Sprite[] normalSprites;
     [SerializeField] Sprite[] redSprites;
+    [SerializeField] Animator barAnimator;
     [Header("Debug")]
-    [SerializeField] Transform[] targetList;
-    void Start()
-    {
-        targetList = GetComponentsInChildren<Transform>();
-        
-    }
+    [SerializeField] GameObject[] targetList;
+    [SerializeField] int ProcessLevel = 1;
 
     public void OnFinishClicked()
     {
         if (CheckFinish())
         {
-            successMenu.SetActive(true);
+            StartCoroutine(SuccessMenuEnable());
+            barAnimator.SetTrigger("FinishTrigger");
         }
-        else
-        {
-            failMenu.SetActive(true);
-        }
+        //else
+        //{
+        //    failMenu.SetActive(true);
+        //}
     }
 
     public bool CheckFinish()
@@ -38,10 +36,12 @@ public class TargetManager : MonoBehaviour
         bool flag = false;
         foreach (var target in targetList)
         {
-            if (target == transform) continue;
-            if ((playerPos - target.position).magnitude < tolerance)
+            if (index >= ProcessLevel * 2) break;
+            if ((playerPos - target.transform.position).magnitude < tolerance)
             {
                 flag = true;
+                PlayerPrefs.SetInt("difficulty", index / 2 + 1);
+                PlayerPrefs.SetInt("steel_index", index);
                 target.GetComponent<SpriteRenderer>().sprite = redSprites[index];
             }
             else
@@ -51,5 +51,32 @@ public class TargetManager : MonoBehaviour
             index++;
         }
         return flag;
+    }
+
+    void IDataPersistence.LoadData(GameData gameData)
+    {
+        ProcessLevel = gameData.ProcessLevel;
+        for (int i = 0; i < targetList.Length; i++)
+        {
+            if (i < ProcessLevel * 2)
+            {
+                targetList[i].SetActive(true);
+            }
+            else
+            {
+                targetList[i].SetActive(false);
+            }
+        }
+    }
+
+    void IDataPersistence.SaveData(GameData gameData)
+    {
+        gameData.ProcessLevel = ProcessLevel;
+    }
+
+    IEnumerator SuccessMenuEnable()
+    {
+        yield return new WaitForSecondsRealtime(0.5f);
+        successMenu.SetActive(true);
     }
 }

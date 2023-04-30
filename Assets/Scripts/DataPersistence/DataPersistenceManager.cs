@@ -19,6 +19,7 @@ public class DataPersistenceManager : MonoBehaviour
         {
             Debug.Log("Found more then one DataPersistenceManager in the scene.");
             Destroy(gameObject);
+            return;
         }
         instance = this;
         fileDataHandler = new(Application.persistentDataPath, selectedProfileId, useEncryption);

@@ -68,7 +68,7 @@ public class DestroyableTile : MonoBehaviour
             {
                 spriteRenderer.sprite = flaw_3;
             }
-            else if(HP*2 <= MaxHP / 3)
+            else if(HP <= MaxHP * 2 / 3)
             {
                 spriteRenderer.sprite = flaw_2;
             }
