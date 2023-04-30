@@ -23,6 +23,7 @@ public class PlayerQuench : MonoBehaviour
     public Transform destination;
     public GameObject successPanel;
     public GameObject failurePanel;
+    public GameObject failureReturnPanel;
     [SerializeField] Image steelImage;
     [SerializeField] Sprite[] steelSprites;
     public Text scoretext;
@@ -129,6 +130,10 @@ public class PlayerQuench : MonoBehaviour
     public void Trigger()//¿ªÊ¼´ã»ð
     {
         //rb.velocity = new Vector2(5, 0);
+        if (adjusttime <= 0)
+        {
+            failureReturnPanel.SetActive(true);
+        }
         if (adjusttime > 0 && !isTrigger)
         {
             for (int i = 0; i < scrollbarList.Length; i++)
@@ -160,20 +165,24 @@ public class PlayerQuench : MonoBehaviour
         {
             score += 1;
             Successe();
+            adjusttime++;
         }
         if (collision.collider.CompareTag("Reward2"))
         {
             score += 2;
             Successe();
+            adjusttime++;
         }
         if (collision.collider.CompareTag("Reward3"))
         {
             score += 3;
             Successe();
+            adjusttime++;
             //Ìø×Ö+3
             plus3.rectTransform.position = transform.position;
             FlyTo(plus3);
         }
+
     }
     private void OnTriggerEnter2D(Collider2D collision)//ÔöÒæÓëÕÏ°­´¥Åö
     {

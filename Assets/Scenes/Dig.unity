@@ -17784,8 +17784,20 @@ PrefabInstance:
       value: ChangeScene, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6353992405418759587, guid: 80b82cc35957d7749af9d4391b18df78, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_FloatArgument
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6353992405418759587, guid: 80b82cc35957d7749af9d4391b18df78, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_FloatArgument
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6353992405418759587, guid: 80b82cc35957d7749af9d4391b18df78, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: SteelRolling
+      objectReference: {fileID: 0}
+    - target: {fileID: 6353992405418759587, guid: 80b82cc35957d7749af9d4391b18df78, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6353992405418759587, guid: 80b82cc35957d7749af9d4391b18df78, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -18647,6 +18659,7 @@ MonoBehaviour:
   skillTree: {fileID: 1647906281}
   successMenu: {fileID: 662533204}
   failMenu: {fileID: 1294596092}
+  failText: {fileID: 1426218181}
   skillOpenAudio: {fileID: 8300000, guid: 7db1f3f40ad10b84cbce81e2261bb277, type: 3}
   tileLevels:
   - {fileID: 405054341}
@@ -19025,6 +19038,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5613983395c362544bdc685dc53f2818, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1426218181 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6353992407376579360, guid: 80b82cc35957d7749af9d4391b18df78, type: 3}
+  m_PrefabInstance: {fileID: 1294596090}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1436164790

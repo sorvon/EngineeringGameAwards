@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Rendering.Universal;
-
+using TMPro;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour, IDataPersistence
 {
@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     [SerializeField] GameObject skillTree;
     [SerializeField] GameObject successMenu;
     [SerializeField] GameObject failMenu;
+    [SerializeField] TextMeshProUGUI failText;
     [Header("音效")]
     [SerializeField] AudioClip skillOpenAudio;
     [Header("难度GameObject")]
@@ -83,8 +84,16 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     private void Update()
     {
-        if (stateManager.timeCountdown<0||stateManager.powerCountdown<0)
+        if ((stateManager.timeCountdown<0||stateManager.powerCountdown<0)&& !failMenu.activeSelf)
         {
+            if (stateManager.powerCountdown < 0)
+            {
+                failText.text = "电力耗尽";
+            }
+            else
+            {
+                failText.text = "超时";
+            }
             failMenu.SetActive(true);
             Time.timeScale = 0;
         }
