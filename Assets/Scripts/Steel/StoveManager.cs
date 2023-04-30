@@ -18,6 +18,7 @@ public class StoveManager : MonoBehaviour, IDropHandler
     public static int oxygen = 2;
     [SerializeField] Button finishButton;
     [SerializeField] TargetManager targetManager;
+    [SerializeField] GameObject failMenu;
     private LineRenderer lineRenderer;
     private bool hasMatrial;
     private GameObject player;
@@ -165,5 +166,7 @@ public class StoveManager : MonoBehaviour, IDropHandler
         hasMatrial = false;
         MaterialManager.lockHover = false;
         lineRenderer.positionCount = 0;
+        audioSource.Stop();
+        failMenu.SetActive(true);
     }
 }

@@ -15,14 +15,26 @@ public class DestroyableTile : MonoBehaviour
     [SerializeField] AudioClip digAudio;
     [SerializeField] AudioClip destroyAudio;
 
+    [Header("ÆÆ»µ")]
+    [SerializeField] Sprite flaw_1;
+    [SerializeField] Sprite flaw_2;
+    [SerializeField] Sprite flaw_3;
+
     private GridLayout gridLayout;
     private Tilemap map;
     private AudioSource audioSource;
+    private float MaxHP;
+    SpriteRenderer spriteRenderer;
+
+    private void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
     private void Start()
     {
         gridLayout = transform.parent.GetComponentInParent<GridLayout>();
         map = transform.parent.GetComponentInParent<Tilemap>();
-        
+        MaxHP = HP;
     }
 
     public bool SetHP(float value)
@@ -52,6 +64,19 @@ public class DestroyableTile : MonoBehaviour
         }
         else
         {
+            if (HP <= MaxHP / 3)
+            {
+                spriteRenderer.sprite = flaw_3;
+            }
+            else if(HP*2 <= MaxHP / 3)
+            {
+                spriteRenderer.sprite = flaw_2;
+            }
+            else
+            {
+                spriteRenderer.sprite = flaw_1;
+            }
+            
             audioSource.PlayOneShot(digAudio);
         }
         return false;

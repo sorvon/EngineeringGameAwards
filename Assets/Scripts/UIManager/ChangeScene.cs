@@ -22,4 +22,9 @@ public class ChangeScene : MonoBehaviour
         yield return new WaitForSecondsRealtime(1);
         SceneManager.LoadScene(name);
     }
+
+    public void SetTimeScale(float value)
+    {
+        Time.timeScale = value;
+    }
 }

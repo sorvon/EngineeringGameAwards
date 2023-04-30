@@ -13,6 +13,9 @@ public class GameData
     public int mineNumA;
     public int mineNumB;
 
+    public int ProcessLevel = 1;
+    public int ancientNum = 0;
+    public int digLevel = 1;    
     public GameData()
     {
         skill_1 = 0;

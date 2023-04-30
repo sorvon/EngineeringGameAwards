@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4293100689704718684}
   - component: {fileID: 4293100689704718675}
   - component: {fileID: 9205738977652400152}
-  - component: {fileID: -4481121415790662107}
+  - component: {fileID: -4974910722192613043}
   m_Layer: 6
   m_Name: NormalObject_1
   m_TagString: DestroyableTile
@@ -46,12 +46,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a14131e55a89a48bd25baf7b1c8742, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 2
+  HP: 4
   drops: []
   min: 1
   max: 3
   digAudio: {fileID: 8300000, guid: 0282c229f9086544ca05864f0a49a43c, type: 3}
   destroyAudio: {fileID: 8300000, guid: cf8b3ad012bafe549a2fdef180e568eb, type: 3}
+  flaw_1: {fileID: 21300000, guid: f6a1c57615895ee4a9a6b92afd78bf1a, type: 3}
+  flaw_2: {fileID: 21300000, guid: 9bfa9747df6aa9c40910ce330deda63c, type: 3}
+  flaw_3: {fileID: 21300000, guid: 8fa774ae6f6d9ef459dd63d3360f459e, type: 3}
 --- !u!61 &9205738977652400152
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -78,14 +81,14 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!212 &-4481121415790662107
+--- !u!212 &-4974910722192613043
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4293100689704718674}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -118,15 +121,15 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: bf46a4c568b973d44a6f642800e7cd5d, type: 3}
-  m_Color: {r: 1, g: 0.67668825, b: 0, a: 1}
+  m_SortingOrder: 10
+  m_Sprite: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.6463022, y: 1.6463022}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0

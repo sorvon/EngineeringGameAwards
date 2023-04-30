@@ -47,29 +47,21 @@ public class PlayerController : MonoBehaviour
             {
                 audioSource.PlayOneShot(skillOpenAudio);
                 skillTree.SetActive(true);
-                Time.timeScale = 0;
+                //Time.timeScale = 0;
             }
             else if (Input.GetButtonDown("Fire2") && skillTree.activeSelf == true)
             {
                 skillTree.SetActive(false);
-                Time.timeScale = 1;
+                //Time.timeScale = 1;
             }
         }
-        //if (skillTree.activeSelf)
-        //{
-        //    Time.timeScale = 0;
-        //}
-        //else
-        //{
-        //    Time.timeScale = 1;
-        //}
         
     }
     private void FixedUpdate()
     {
         hitIntervalTimeCount += Time.fixedDeltaTime;
         var v = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        //print(v);
+        print(v);
         if (! moveLock)
         {
             rb.velocity = Mathf.Pow(velocityDecreaseBase, playerCollect.collectedList.Count) * velocity * v;
@@ -110,7 +102,8 @@ public class PlayerController : MonoBehaviour
                 rb.velocity = Vector2.zero;
                 rb.DOMove(new Vector2(-vecDir.x, -vecDir.y)*0.1f, 0.5f).SetRelative(true).OnComplete(() =>
                 {
-                    Input.ResetInputAxes();
+                    //Input.ResetInputAxes();
+                    
                     moveLock = false;
                 });
                 bool isBroken = tile.SetHP(tile.HP - hitDamage);

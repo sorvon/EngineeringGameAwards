@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class TargetManager : MonoBehaviour
 {
+    [Header("Config")]
     [SerializeField] private float tolerance = 0.1f;
     [SerializeField] private GameObject successMenu;
     [SerializeField] private GameObject failMenu;
+    [SerializeField] Sprite[] normalSprites;
+    [SerializeField] Sprite[] redSprites;
+    [Header("Debug")]
     [SerializeField] Transform[] targetList;
     void Start()
     {
@@ -30,14 +34,22 @@ public class TargetManager : MonoBehaviour
     {
         var player = GameObject.FindWithTag("Player");
         var playerPos = player.transform.position;
+        int index = 0;
+        bool flag = false;
         foreach (var target in targetList)
         {
             if (target == transform) continue;
             if ((playerPos - target.position).magnitude < tolerance)
             {
-                return true;
+                flag = true;
+                target.GetComponent<SpriteRenderer>().sprite = redSprites[index];
             }
+            else
+            {
+                target.GetComponent<SpriteRenderer>().sprite = normalSprites[index];
+            }
+            index++;
         }
-        return false;
+        return flag;
     }
 }

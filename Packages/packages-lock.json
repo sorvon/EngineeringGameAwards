@@ -7,6 +7,12 @@
       "dependencies": {},
       "url": "https://packages.unity.cn"
     },
+    "com.coffee.unmask": {
+      "version": "file:D:/sorvon/GoogleDownload/UnmaskForUGUI-1.4.1",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
+    },
     "com.unity.2d.animation": {
       "version": "7.0.9",
       "depth": 1,
