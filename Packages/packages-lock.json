@@ -8,9 +8,9 @@
       "url": "https://packages.unity.cn"
     },
     "com.coffee.unmask": {
-      "version": "file:D:/sorvon/GoogleDownload/UnmaskForUGUI-1.4.1",
+      "version": "file:UnmaskForUGUI-1.4.1",
       "depth": 0,
-      "source": "local",
+      "source": "embedded",
       "dependencies": {}
     },
     "com.unity.2d.animation": {
