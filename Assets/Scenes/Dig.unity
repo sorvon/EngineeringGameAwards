@@ -18653,7 +18653,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocityBase: 2
   hitInterval: 0.1
-  hitDamageBase: 1
+  hitDamageBase: 2
   velocityDecreaseBase: 0.75
   stateManager: {fileID: 1211502032}
   skillTree: {fileID: 1647906281}
