@@ -220,7 +220,7 @@ public class PlayerQuench : MonoBehaviour, IDataPersistence
         scoretext.text = "分数：" + score;
         Debug.Log("用时：" + timeCount);
         DataPersistenceManager.instance.SaveGame();
-
+        DataPersistenceManager.instance.LoadGame();
     }
     public static void FlyTo(Graphic graphic)//用于跳字。复制的，一句话都看不懂
     {

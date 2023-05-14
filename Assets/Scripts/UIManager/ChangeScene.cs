@@ -2,10 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using DG.Tweening;
-public class ChangeScene : MonoBehaviour
+public class ChangeScene : MonoBehaviour, IDataPersistence
 {
     [SerializeField] Animator animator;
+    private Image[] swordImages;
+    private void Awake()
+    {
+        swordImages = animator.gameObject.GetComponentsInChildren<Image>();
+    }
     public void ToScene(string name)
     {
         PlayerQuench.adjusttime = 5;
@@ -27,5 +33,26 @@ public class ChangeScene : MonoBehaviour
     public void SetTimeScale(float value)
     {
         Time.timeScale = value;
+    }
+
+    void IDataPersistence.LoadData(GameData gameData)
+    {
+        bool[] swords = gameData.swords;
+        for (int i = 0; i < swords.Length; i++)
+        {
+            if (swords[i])
+            {
+                swordImages[i+1].color = new Color(255, 255, 255);
+            }
+            else
+            {
+                swordImages[i+1].color = new Color(0, 0, 0);
+            }
+        }
+    }
+
+    void IDataPersistence.SaveData(GameData gameData)
+    {
+
     }
 }

@@ -18,6 +18,11 @@ public class GameData
     public int digLevel = 1;  
     
     public bool[] swords;
+    public bool baseDialog = true;
+    public bool steelDialog = true;
+    public bool steelRollingDialog = true;
+    public bool quenchDialog = true;
+    public bool[] digDialogs;
     public GameData()
     {
         skill_1 = 0;
@@ -30,6 +35,11 @@ public class GameData
         for (int i = 0; i < 8; i++)
         {
             swords[i] = false;
+        }
+        digDialogs = new bool[3];
+        for (int i = 0; i < digDialogs.Length; i++)
+        {
+            digDialogs[i] = true;
         }
         lastTime = System.DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
     }
