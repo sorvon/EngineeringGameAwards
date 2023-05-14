@@ -39,6 +39,7 @@ public class DialogueManager : MonoBehaviour
     public Sprite portraitA2;
     public Sprite portraitB;
     public Sprite portraitC;
+    public Sprite none;
     public RectTransform speakerFrame;
     public RectTransform positionLeft;
     public RectTransform positionRight;
@@ -108,6 +109,8 @@ public class DialogueManager : MonoBehaviour
         dialogueIsPlaying = false;
         dialoguePanel.SetActive(false);
         dialogueText.text = "";
+        speakerLeft.sprite = none;
+        speakerRight.sprite = none;
         //trigger.SetActive(false);
         return;
     }
@@ -156,7 +159,7 @@ public class DialogueManager : MonoBehaviour
             choices[i].gameObject.SetActive(false);
         }
 
-        StartCoroutine(SelectFirstChoice());
+        //StartCoroutine(SelectFirstChoice());
     }
 
     private IEnumerator SelectFirstChoice()
@@ -197,6 +200,16 @@ public class DialogueManager : MonoBehaviour
                 case SPEAKER_TAG:
                     Debug.Log(tagValue);
                     displayNameText.text = tagValue;
+                    if (tagValue == "ет╟в")
+                    {
+                        speakerFrame.gameObject.SetActive(false);
+                        speakerLeft.sprite = none;
+                        speakerRight.sprite = none;
+                    }
+                    else
+                    {
+                        speakerFrame.gameObject.SetActive(true);
+                    }
                     //CharacterConvert(tagValue);
                     break;
                 case PORTRAIT_TAG:
