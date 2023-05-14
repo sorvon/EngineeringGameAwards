@@ -626,7 +626,7 @@ MonoBehaviour:
   quenchingSound: {fileID: 531534256}
   horizontalForce: 3
   verticalForce: 1
-  verticalForceInterval: 1
+  verticalForceInterval: 0.8
   destTolerance: 0.2
   scrollbarList:
   - {fileID: 857474238}
