@@ -9,7 +9,7 @@ using TMPro;
 using Cinemachine;
 
 [RequireComponent(typeof(LineRenderer))]
-public class StoveManager : MonoBehaviour, IDropHandler, IDataPersistence
+public class StoveManager : MonoBehaviour, IDropHandler
 {
     [Header("Config")]
     public float speed = 2;
@@ -20,12 +20,11 @@ public class StoveManager : MonoBehaviour, IDropHandler, IDataPersistence
     [SerializeField] Button finishButton;
     [SerializeField] TargetManager targetManager;
     [SerializeField] GameObject failMenu;
-    [SerializeField] GameObject level_2_disable;
+    
     private LineRenderer lineRenderer;
     private bool hasMatrial;
     private GameObject player;
     private Vector3[] rawPoints;
-    private int ProcessLevel = 1;
     AudioSource audioSource;
     
     private void Awake()
@@ -39,10 +38,6 @@ public class StoveManager : MonoBehaviour, IDropHandler, IDataPersistence
     {
         player = GameObject.FindWithTag("Player");
         oxygenUI.text = Convert.ToString(oxygen);
-        if (ProcessLevel == 3)
-        {
-            level_2_disable.SetActive(false);
-        }
     }
 
     private void Update()
@@ -182,15 +177,5 @@ public class StoveManager : MonoBehaviour, IDropHandler, IDataPersistence
         lineRenderer.positionCount = 0;
         audioSource.Stop();
         failMenu.SetActive(true);
-    }
-
-    void IDataPersistence.LoadData(GameData gameData)
-    {
-        ProcessLevel = gameData.ProcessLevel;
-    }
-
-    void IDataPersistence.SaveData(GameData gameData)
-    {
-        gameData.ProcessLevel = ProcessLevel;
     }
 }

@@ -119,16 +119,17 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         var v = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         //print(v);
 
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < 16; i++)
         {
             float rad = i * Mathf.Deg2Rad;
-            RaycastHit2D raycastHit = Physics2D.Raycast(transform.position, new Vector2(Mathf.Cos(rad*45), Mathf.Sin(rad*45)), 5f, LayerMask.GetMask("DestroyableTile"));
+            RaycastHit2D raycastHit = Physics2D.Raycast(transform.position, new Vector2(Mathf.Cos(rad*22.5f), Mathf.Sin(rad* 22.5f)), 5f, LayerMask.GetMask("DestroyableTile"));
             if (raycastHit.collider != null)
             {
                 //Debug.Log(raycastHit.collider.name);
                 if (raycastHit.collider.CompareTag("DestroyableTile"))
                 {
                     raycastHit.collider.GetComponent<ShadowCaster2D>().enabled = false;
+                    //raycastHit.collider.GetComponent<Light2D>().intensity = 0.5f;
                 }
             }
         }
@@ -238,6 +239,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         if (collision.CompareTag("SkillTreeTrigger"))
         {
             collision.GetComponent<SpriteRenderer>().enabled = true;
+            collision.GetComponentInChildren<TextMeshPro>().enabled = true;
             skillTreeTrigger = true;
         }
     }
@@ -256,6 +258,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         if (collision.CompareTag("SkillTreeTrigger"))
         {
             collision.GetComponent<SpriteRenderer>().enabled = false;
+            collision.GetComponentInChildren<TextMeshPro>().enabled = false;
             skillTreeTrigger = false;
         }
     }
@@ -266,9 +269,9 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         //print(velocity);
     }
 
-    public void SetHitDamageMultiplying(float value)
+    public void SetHitDamage(float value)
     {
-        hitDamage = hitDamageBase * value;
+        hitDamage = value;
     }
     public void SetVelocityDecreaseBase(float value)
     {

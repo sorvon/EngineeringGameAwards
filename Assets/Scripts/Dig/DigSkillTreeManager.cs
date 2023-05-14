@@ -99,15 +99,15 @@ public class DigSkillTreeManager : MonoBehaviour
 
         if (skill_1 == 1)
         {
-            player.SetHitDamageMultiplying(3f);
+            player.SetHitDamage(4f);
         }
         else if (skill_1 == 2)
         {
-            player.SetHitDamageMultiplying(6f);
+            player.SetHitDamage(9f);
         }
         else if (skill_1 == 3)
         {
-            player.SetHitDamageMultiplying(14f);
+            player.SetHitDamage(14f);
         }
 
         if (skill_3 == 1)
