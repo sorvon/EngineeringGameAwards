@@ -11,10 +11,29 @@ public class TargetManager : MonoBehaviour, IDataPersistence
     [SerializeField] Sprite[] normalSprites;
     [SerializeField] Sprite[] redSprites;
     [SerializeField] Animator barAnimator;
+    [SerializeField] GameObject level_2_disable;
     [Header("Debug")]
     [SerializeField] GameObject[] targetList;
     [SerializeField] int ProcessLevel = 1;
 
+    private void Awake()
+    {
+        if (ProcessLevel>=2)
+        {
+            level_2_disable.SetActive(false);
+        }
+        for (int i = 0; i < targetList.Length; i++)
+        {
+            if (i < ProcessLevel * 3)
+            {
+                targetList[i].SetActive(true);
+            }
+            else
+            {
+                targetList[i].SetActive(false);
+            }
+        }
+    }
     public void OnFinishClicked()
     {
         if (CheckFinish())
@@ -36,7 +55,7 @@ public class TargetManager : MonoBehaviour, IDataPersistence
         bool flag = false;
         foreach (var target in targetList)
         {
-            if (index >= ProcessLevel * 2) break;
+            if (!target.activeSelf) break;
             if ((playerPos - target.transform.position).magnitude < tolerance)
             {
                 flag = true;
@@ -58,7 +77,7 @@ public class TargetManager : MonoBehaviour, IDataPersistence
         ProcessLevel = gameData.ProcessLevel;
         for (int i = 0; i < targetList.Length; i++)
         {
-            if (i < ProcessLevel * 2)
+            if (i < ProcessLevel * 3)
             {
                 targetList[i].SetActive(true);
             }
@@ -66,6 +85,10 @@ public class TargetManager : MonoBehaviour, IDataPersistence
             {
                 targetList[i].SetActive(false);
             }
+        }
+        if (ProcessLevel == 2)
+        {
+            level_2_disable.SetActive(false);
         }
     }
 
