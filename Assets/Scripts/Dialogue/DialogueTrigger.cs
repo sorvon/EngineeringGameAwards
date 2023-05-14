@@ -7,25 +7,28 @@ public class DialogueTrigger : MonoBehaviour
     [Header("Ink JSON")]
     [SerializeField] private TextAsset inkJSON;
 
-    private bool toEnterDialogue;
-    void Awake()
+    //private bool toEnterDialogue;
+  /*  void Awake()
     {
         toEnterDialogue = false;
-    }
+    }*/
 
     // Update is called once per frame
-    void Update()
-    {
-        if (toEnterDialogue && !DialogueManager.GetInstance().dialogueIsPlaying)
-        {
-        
-        DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
-        
-        }
-    }
+    //void Update()
+    //{
+    //    if (toEnterDialogue && !DialogueManager.GetInstance().dialogueIsPlaying)
+    //    {
+
+    //    }
+    //}
 
     public void EnterDialogue()
     {
-        toEnterDialogue = true;
+        if (!DialogueManager.GetInstance().dialogueIsPlaying)
+        {
+            DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
+        }
+        
+        //toEnterDialogue = true;
     }
 }
