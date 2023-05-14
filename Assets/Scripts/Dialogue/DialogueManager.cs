@@ -35,9 +35,10 @@ public class DialogueManager : MonoBehaviour
     public SpriteRenderer speakerRight;
     private SpriteRenderer speakerNow;
     private Sprite crtNow;
-    public Sprite crtA;
-    public Sprite crtB;
-    public Sprite crtC;
+    public Sprite portraitA1;
+    public Sprite portraitA2;
+    public Sprite portraitB;
+    public Sprite portraitC;
     public RectTransform speakerFrame;
     public RectTransform positionLeft;
     public RectTransform positionRight;
@@ -84,7 +85,7 @@ public class DialogueManager : MonoBehaviour
 
         // handle continuing to the next line in the dialogue when submit is pressed
         // NOTE: The 'currentStory.currentChoiecs.Count == 0' part was to fix a bug after the Youtube video was made
-        if (currentStory.currentChoices.Count == 0 && Input.GetKeyDown(KeyCode.Space))
+        if (currentStory.currentChoices.Count == 0 && (Input.GetKeyDown(KeyCode.Space)||Input.GetMouseButtonDown (0)))
         {
             ContinueStory();
         }
@@ -107,7 +108,7 @@ public class DialogueManager : MonoBehaviour
         dialogueIsPlaying = false;
         dialoguePanel.SetActive(false);
         dialogueText.text = "";
-        trigger.SetActive(false);
+        //trigger.SetActive(false);
         return;
     }
 
@@ -196,11 +197,11 @@ public class DialogueManager : MonoBehaviour
                 case SPEAKER_TAG:
                     Debug.Log(tagValue);
                     displayNameText.text = tagValue;
+                    //CharacterConvert(tagValue);
+                    break;
+                case PORTRAIT_TAG:
                     CharacterConvert(tagValue);
                     break;
-              /*  case PORTRAIT_TAG:
-                    portraitAnimator.Play(tagValue);
-                    break;*/
                 case LAYOUT_TAG:
                     Debug.Log(tagValue);
                     if (tagValue == "left")
@@ -234,17 +235,20 @@ public class DialogueManager : MonoBehaviour
     {
         switch (tagValue)
         {
-            case "A":
-                crtNow = crtA;
+            case "A1":
+                crtNow = portraitA1;
+                break;
+            case "A2":
+                crtNow = portraitA2;
                 break;
             case "B":
-                crtNow = crtB;
+                crtNow = portraitB;
                 break;
             case "C":
-                crtNow = crtC;
+                crtNow = portraitC;
                 break;
             default:
-                Debug.LogWarning("tag:speaker出现问题");
+                Debug.LogWarning("tag:protrait出现问题");
                 break;
         }
     }
