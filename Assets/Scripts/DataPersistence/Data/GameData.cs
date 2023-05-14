@@ -15,7 +15,9 @@ public class GameData
 
     public int ProcessLevel = 1;
     public int ancientNum = 0;
-    public int digLevel = 1;    
+    public int digLevel = 1;  
+    
+    public bool[] swords;
     public GameData()
     {
         skill_1 = 0;
@@ -24,6 +26,11 @@ public class GameData
         mineNumA = 0;
         mineNumB = 0;
         durationTime = 0;
+        swords = new bool[8];
+        for (int i = 0; i < 8; i++)
+        {
+            swords[i] = false;
+        }
         lastTime = System.DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
     }
 

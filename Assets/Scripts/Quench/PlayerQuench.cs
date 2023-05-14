@@ -6,7 +6,7 @@ using TMPro;
 using DG.Tweening;
 
 
-public class PlayerQuench : MonoBehaviour
+public class PlayerQuench : MonoBehaviour, IDataPersistence
 {
     [Header("音频")]
     public AudioSource scoreUpSound;
@@ -43,6 +43,7 @@ public class PlayerQuench : MonoBehaviour
     [Header("Debug")]
     [SerializeField] bool overrideDifficulty;
     [SerializeField] int defaultDifficulty = 1;
+    [SerializeField] int defaultSteelIndex = 0;
 
 
     public int score;
@@ -218,6 +219,8 @@ public class PlayerQuench : MonoBehaviour
         statistics.text = "烧损程度：" + ((float)score / 3).ToString("0.0") + "\n切损程度：" + ((float)score / 3 - 1).ToString("0.0") + "\n表面质量：" + ((float)score / 3 + 1).ToString("0.0");
         scoretext.text = "分数：" + score;
         Debug.Log("用时：" + timeCount);
+        DataPersistenceManager.instance.SaveGame();
+
     }
     public static void FlyTo(Graphic graphic)//用于跳字。复制的，一句话都看不懂
     {
@@ -237,4 +240,14 @@ public class PlayerQuench : MonoBehaviour
         mySequence.Join(alpha2);
     }
 
+    void IDataPersistence.LoadData(GameData gameData)
+    {
+        
+    }
+
+    void IDataPersistence.SaveData(GameData gameData)
+    {
+        int steel_index = PlayerPrefs.GetInt("steel_index", defaultSteelIndex);
+        gameData.swords[steel_index] = true;
+    }
 }

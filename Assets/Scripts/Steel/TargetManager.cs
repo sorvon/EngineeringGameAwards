@@ -59,7 +59,7 @@ public class TargetManager : MonoBehaviour, IDataPersistence
             if ((playerPos - target.transform.position).magnitude < tolerance)
             {
                 flag = true;
-                PlayerPrefs.SetInt("difficulty", index / 2 + 1);
+                PlayerPrefs.SetInt("difficulty", index / 3 + 1);
                 PlayerPrefs.SetInt("steel_index", index);
                 target.GetComponent<SpriteRenderer>().sprite = redSprites[index];
             }
