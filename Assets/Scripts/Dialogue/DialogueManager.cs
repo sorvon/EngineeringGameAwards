@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using Ink.Runtime;
 using UnityEngine.EventSystems;
@@ -31,9 +32,9 @@ public class DialogueManager : MonoBehaviour
     private const string LAYOUT_TAG = "layout";
     //private const string AUDIO_TAG = "audio";
 
-    public SpriteRenderer speakerLeft;
-    public SpriteRenderer speakerRight;
-    private SpriteRenderer speakerNow;
+    public Image speakerLeft;
+    public Image speakerRight;
+    private Image speakerNow;
     private Sprite crtNow;
     public Sprite portraitA1;
     public Sprite portraitA2;
@@ -43,7 +44,6 @@ public class DialogueManager : MonoBehaviour
     public RectTransform speakerFrame;
     public RectTransform positionLeft;
     public RectTransform positionRight;
-    public GameObject trigger;
 
     private void Awake()
     {
@@ -76,7 +76,7 @@ public class DialogueManager : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(dialogueIsPlaying);
+        //Debug.Log(dialogueIsPlaying);
         // return right away if dialogue isn't playing
         if (!dialogueIsPlaying)
         {
@@ -109,8 +109,8 @@ public class DialogueManager : MonoBehaviour
         dialogueIsPlaying = false;
         dialoguePanel.SetActive(false);
         dialogueText.text = "";
-        speakerLeft.sprite = none;
-        speakerRight.sprite = none;
+        speakerLeft.enabled = false;
+        speakerRight.enabled = false;
         //trigger.SetActive(false);
         return;
     }
@@ -203,11 +203,13 @@ public class DialogueManager : MonoBehaviour
                     if (tagValue == "ет╟в")
                     {
                         speakerFrame.gameObject.SetActive(false);
-                        speakerLeft.sprite = none;
-                        speakerRight.sprite = none;
+                        speakerLeft.enabled = false;
+                        speakerRight.enabled = false;
                     }
                     else
                     {
+                        //speakerLeft.enabled = true;
+                        //speakerRight.enabled = true;
                         speakerFrame.gameObject.SetActive(true);
                     }
                     //CharacterConvert(tagValue);
@@ -221,17 +223,21 @@ public class DialogueManager : MonoBehaviour
                     {
                         speakerLeft.color = Color.white;
                         speakerRight.color = Color.gray;
-                        speakerNow = speakerLeft;
+                        //speakerNow = speakerLeft;
                         speakerFrame.position = positionLeft.position;
                         speakerLeft.sprite = crtNow;
+                        if (speakerLeft.sprite) speakerLeft.enabled = true;
+                        if (speakerRight.sprite) speakerRight.enabled = true;
                     }
                     else
-                    {
+                    {  
                         speakerLeft.color = Color.gray;
                         speakerRight.color = Color.white;
-                        speakerNow = speakerRight;
+                        //speakerNow = speakerRight;
                         speakerFrame.position = positionRight.position;
                         speakerRight.sprite = crtNow;
+                        if (speakerLeft.sprite) speakerLeft.enabled = true;
+                        if (speakerRight.sprite) speakerRight.enabled = true;
                     }
                     //layoutAnimator.Play(tagValue);
                     break;

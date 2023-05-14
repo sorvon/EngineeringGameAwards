@@ -20,10 +20,11 @@ public class SkillTreeManager : MonoBehaviour, IDataPersistence
     [SerializeField] float orthogrphicSize = 0.95f;
     [SerializeField] private Vector3 oldCameraPos;
     [SerializeField] private float oldOrthogrphicSize;
+    [SerializeField] private TextAsset inkJSON;
 
     [Header("Debug")]
     [SerializeField] int ancientNum = 0;
-
+    [SerializeField] bool skillDialog;
     private void Awake()
     {
         oldCameraPos = new Vector3(0, 0, -10);
@@ -38,6 +39,12 @@ public class SkillTreeManager : MonoBehaviour, IDataPersistence
         camera.DOOrthoSize(orthogrphicSize, 1).OnComplete(() =>
         {
             gameObject.SetActive(true);
+            if (skillDialog)
+            {
+                DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
+                skillDialog = false;
+                DataPersistenceManager.instance.SaveGame();
+            }
         });
     }
     public void OnBackClicked()
@@ -89,6 +96,7 @@ public class SkillTreeManager : MonoBehaviour, IDataPersistence
     {
         ancientNum = gameData.ancientNum;
         ProcessLevel = gameData.ProcessLevel;
+        skillDialog = gameData.skillDialog;
         UpdateUI();
     }
 
@@ -96,5 +104,6 @@ public class SkillTreeManager : MonoBehaviour, IDataPersistence
     {
         gameData.ancientNum = ancientNum;
         gameData.ProcessLevel = ProcessLevel;
+        gameData.skillDialog = skillDialog;
     }
 }

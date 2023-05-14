@@ -102,4 +102,9 @@ public class DataPersistenceManager : MonoBehaviour
     {
         selectedProfileId = value;
     }
+
+    public GameData GetCurrentGameData()
+    {
+        return gameData;
+    }
 }

@@ -27,7 +27,7 @@ public class CameraController : MonoBehaviour, IPointerDownHandler, IPointerUpHa
             Vector3 delta = newMousePos - lastMousePos;
             cam.transform.position += CalcDragLength(cam, delta, distance);
             //var clamp_x = Mathf.Clamp(cam.transform.position.x, -50f + cam.orthographicSize* 1302.8f / 681.47f, 50f - cam.orthographicSize * 1302.8f / 681.47f);
-            var clamp_x = Mathf.Clamp(cam.transform.position.x, -36.7f + cam.orthographicSize, 45f - cam.orthographicSize );
+            var clamp_x = Mathf.Clamp(cam.transform.position.x, -36.7f + cam.orthographicSize, 45f - cam.orthographicSize);
             var clamp_y = Mathf.Clamp(cam.transform.position.y, -35f + cam.orthographicSize, 30f - cam.orthographicSize);
             cam.transform.position = new Vector3(clamp_x, clamp_y, cam.transform.position.z);
             lastMousePos = newMousePos;

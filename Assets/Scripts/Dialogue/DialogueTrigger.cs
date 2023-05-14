@@ -7,6 +7,7 @@ public class DialogueTrigger : MonoBehaviour, IDataPersistence
 {
     [Header("Ink JSON")]
     [SerializeField] private TextAsset inkJSON;
+    [SerializeField] private int digLevel = 1;
     GameData gameData;
 
     //private bool toEnterDialogue;
@@ -23,6 +24,7 @@ public class DialogueTrigger : MonoBehaviour, IDataPersistence
 
     //    }
     //}
+    
     private void Start()
     {
         if (DialogueManager.GetInstance().dialogueIsPlaying) return;
@@ -58,11 +60,11 @@ public class DialogueTrigger : MonoBehaviour, IDataPersistence
                 }
                 break;
             case "Dig":
-                //if (gameData.baseDialog)
-                //{
-                //    DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
-                //    gameData.baseDialog = false;
-                //}
+                if (gameData.digLevel == digLevel && gameData.digDialogs[digLevel-1])
+                {
+                    DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
+                    gameData.digDialogs[digLevel - 1] = false;
+                }
                 break;
             default:
                 break;

@@ -86,7 +86,7 @@ public class TargetManager : MonoBehaviour, IDataPersistence
                 targetList[i].SetActive(false);
             }
         }
-        if (ProcessLevel == 2)
+        if (ProcessLevel >= 2)
         {
             level_2_disable.SetActive(false);
         }

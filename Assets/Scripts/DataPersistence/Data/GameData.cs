@@ -19,6 +19,8 @@ public class GameData
     
     public bool[] swords;
     public bool baseDialog = true;
+    public bool skillDialog = true;
+    public bool baseDigDialog = true;
     public bool steelDialog = true;
     public bool steelRollingDialog = true;
     public bool quenchDialog = true;

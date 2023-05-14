@@ -22,6 +22,7 @@ public class PlayerQuench : MonoBehaviour, IDataPersistence
     static double[] scrollbarValues;
     public Transform destination;
     public GameObject successPanel;
+    
     public GameObject failurePanel;
     public GameObject failureReturnPanel;
     [SerializeField] Image steelImage;

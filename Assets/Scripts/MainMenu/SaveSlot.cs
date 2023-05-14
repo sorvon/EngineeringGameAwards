@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 public class SaveSlot : MonoBehaviour
@@ -50,6 +51,20 @@ public class SaveSlot : MonoBehaviour
             DataPersistenceManager.instance.NewGame();
         }
         DataPersistenceManager.instance.SaveGame();
+        var gameData = DataPersistenceManager.instance.GetCurrentGameData();
+        var swordImages = sceneTransition.gameObject.GetComponentsInChildren<Image>();
+        bool[] swords = gameData.swords;
+        for (int i = 0; i < swords.Length; i++)
+        {
+            if (swords[i])
+            {
+                swordImages[i + 2].color = new Color(255, 255, 255);
+            }
+            else
+            {
+                swordImages[i + 2].color = new Color(0, 0, 0);
+            }
+        }
         sceneTransition.SetTrigger("Start");
         StartCoroutine(LoadScene("Base"));
     }
