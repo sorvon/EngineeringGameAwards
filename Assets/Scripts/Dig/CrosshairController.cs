@@ -7,6 +7,7 @@ public class CrosshairController : MonoBehaviour
     [Header("Config")]
     [SerializeField] float moveSpeed = 100;
     [SerializeField] GameObject beacon;
+    [SerializeField] Transform dest;
 
     [Header("Debug")]
     [SerializeField] List<GameObject> beaconList;
@@ -24,15 +25,17 @@ public class CrosshairController : MonoBehaviour
         transform.position += new Vector3(axix_h, axix_v, 0) * Time.deltaTime * moveSpeed;
         if (Input.GetButtonDown("Fire1"))
         {
+            var bPos = transform.position;
+            bPos.z = 0;
             if (beaconList.Count < 3)
             {
-                beaconList.Add(GameObject.Instantiate(beacon, transform.position, transform.rotation));
+                beaconList.Add(GameObject.Instantiate(beacon, bPos, transform.rotation));
                 beaconIndex += 1;
                 beaconIndex %= 3;
             }
             else
             {
-                beaconList[beaconIndex].transform.position = transform.position;
+                beaconList[beaconIndex].transform.position = bPos;
                 beaconIndex += 1;
                 beaconIndex %= 3;
             }
@@ -40,6 +43,8 @@ public class CrosshairController : MonoBehaviour
             {
                 var anim = b.GetComponent<Animator>();
                 anim.Play("Begin");
+                
+                anim.SetFloat("Distance", (dest.position - b.transform.position).magnitude);
             }
         }
     }
