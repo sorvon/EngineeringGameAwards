@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class HoverUIShowName : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public GameObject infoImage;
-    public string AnnotationText;
+    public string annotationText;
+    Text text;
 
     //Æ«ÒÆÖµ
     [SerializeField] float offsetX = 0;
@@ -26,6 +27,7 @@ public class HoverUIShowName : MonoBehaviour, IPointerEnterHandler, IPointerExit
         if (infoImage.activeSelf)
         {
             infoImage.transform.position = Input.mousePosition + new Vector3(offsetX, offsety, 0);
+            //infoImage.transform.position = text.transform.TransformPoint(Input.mousePosition) + new Vector3(offsetX, offsety, 0);
         }
     }
 
@@ -34,7 +36,7 @@ public class HoverUIShowName : MonoBehaviour, IPointerEnterHandler, IPointerExit
         if (infoImage != null)
         {
             infoImage.SetActive(true);
-            infoImage.GetComponentInChildren<Text>().text = AnnotationText;
+            infoImage.GetComponentInChildren<Text>().text = annotationText;
         }
     }
 

@@ -12,7 +12,7 @@ public class DialogueManager : MonoBehaviour
     [Header("Dialogue UI")]
     [SerializeField] private GameObject dialoguePanel;
 
-    [SerializeField] private Text dialogueText;
+    [SerializeField] private TextMeshProUGUI dialogueText;
 
     [Header("Choices UI")]
 
@@ -120,8 +120,15 @@ public class DialogueManager : MonoBehaviour
 
     private void ContinueStory()
     {
+        //
+/*        dialogueText.gameObject.GetComponent<TMP_TextEventHandler>().annoWord1 = "";
+        dialogueText.gameObject.GetComponent<TMP_TextEventHandler>().annoText1 = "";
+        dialogueText.gameObject.GetComponent<TMP_TextEventHandler>().annoWord2 = "";
+        dialogueText.gameObject.GetComponent<TMP_TextEventHandler>().annoText2 = "";
+        dialogueText.gameObject.GetComponent<TMP_TextEventHandler>().annoWordNow = "";
         UnityEngine.Object.Destroy(tempAnnotator);
         UnityEngine.Object.Destroy(tempAnnotator2);
+*/
         if (currentStory.canContinue)
         {
             // set text for the current dialogue line
@@ -210,12 +217,17 @@ public class DialogueManager : MonoBehaviour
             switch (tagKey)
             {
                 case "anno":
-                    Debug.Log("Ìí¼Ó×¢ÊÍ" + tag+ "  1:" + splitTag[1].Trim() + "  2:" + splitTag[2].Trim());
-                    tempAnnotator = GetComponent<TextAnnotator>().AddAnnotation(splitTag[1].Trim(), splitTag[2].Trim());
+                    Debug.Log("Ìí¼Ó×¢ÊÍ" + tag + "  1:" + splitTag[1].Trim() + "  2:" + splitTag[2].Trim());
+
+                    dialogueText.gameObject.GetComponent<TMP_TextEventHandler0>().annoWord1 = splitTag[1].Trim();
+                    dialogueText.gameObject.GetComponent<TMP_TextEventHandler0>().annoText1 = splitTag[2].Trim();
+                    //tempAnnotator = GetComponent<TextAnnotator>().AddAnnotation(splitTag[1].Trim(), splitTag[2].Trim());
                     break;
                 case "anno2":
                     Debug.Log("Ìí¼Ó×¢ÊÍ" + tag + "  1:" + splitTag[1].Trim() + "  2:" + splitTag[2].Trim());
-                    tempAnnotator2 = GetComponent<TextAnnotator>().AddAnnotation(splitTag[1].Trim(), splitTag[2].Trim());
+                    dialogueText.gameObject.GetComponent<TMP_TextEventHandler0>().annoWord2 = splitTag[1].Trim();
+                    dialogueText.gameObject.GetComponent<TMP_TextEventHandler0>().annoText2 = splitTag[2].Trim();
+                    //tempAnnotator2 = GetComponent<TextAnnotator>().AddAnnotation(splitTag[1].Trim(), splitTag[2].Trim());
                     break;
 
                 case SPEAKER_TAG:

@@ -26,7 +26,7 @@ public class TextAnnotator : MonoBehaviour
     public Object AddAnnotation(string strFragment, string annoText)
     {
         Object annotator=original1;
-        original1.GetComponent<HoverUIShowName>().AnnotationText = annoText;
+        original1.GetComponent<HoverUIShowName>().annotationText = annoText;
         //
         Debug.Log(strFragment.Length+"×ÖÌå´óÐ¡£º"+text.fontSize);
         original1.GetComponent<RectTransform>().sizeDelta = new Vector2(strFragment.Length* text.fontSize, text.fontSize);

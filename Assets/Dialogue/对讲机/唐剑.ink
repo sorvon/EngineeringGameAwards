@@ -3,7 +3,7 @@
 ===tangjian===
 白猿，有信来了，这次是个大活。#speaker:信使 #portrait:C #layout:right
 信使叔叔？#speaker:你 #portrait:A1 #layout:left
-别吵着大人们说话，谁寄来的？#speaker:白猿 #portrait:A1 #layout:right
+别吵着大人们说话，谁寄来的？#speaker:白猿 #portrait:B #layout:right
 师傅你俩先聊吧。#speaker:你 #portrait:A1 #layout:right#speaker:你 #portrait:A1 #layout:left
 张伯优，那个明星，之前挺有名，还演过《宫廷梦》的那个。#speaker:信使 #portrait:C #layout:left
 我哪看那些，不过我也有点印象，就是那个“最后的剑舞家”？#speaker:白猿 #portrait:B #layout:right

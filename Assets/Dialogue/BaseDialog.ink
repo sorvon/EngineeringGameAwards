@@ -10,6 +10,6 @@
 想什么呢？先给为师我学明白怎么为铸剑做出绝世的好钢再说！一块去炼钢区，让为师带你温习一下基本的炼钢知识。 #speaker:白猿 #portrait:B #layout:right
 我都看了这么多遍书了......#speaker:你  #portrait:B #layout:right #portrait:A1 #layout:left
 逆徒！读万里书，行万里路，懂吗？ #speaker:白猿 #portrait:B #layout:right
-师傅？我还是先去<b><color=red>炼钢区</color></b>看看吧。#speaker:你  #portrait:B #layout:right #portrait:A1 #layout:left #anno:炼钢区:用于炼钢的区域
+师傅？我还是先去<b><color=red>“炼钢区”</color></b>看看吧。#speaker:你  #portrait:B #layout:right #portrait:A1 #layout:left #anno:炼钢区:用于炼钢的区域
  
 ->END
