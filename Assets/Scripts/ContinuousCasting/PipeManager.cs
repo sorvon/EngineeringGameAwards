@@ -10,8 +10,21 @@ public class PipeManager : MonoBehaviour
     [SerializeField] float particlePerSec;
     [SerializeField] GameObject particlePrefab;
 
+    public static PipeManager instance { get; private set; }
+
     float particleInterval;
     float particleTimeCount;
+
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.Log("Found more then one PipeManager in the scene.");
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
