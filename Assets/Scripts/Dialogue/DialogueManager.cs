@@ -12,7 +12,7 @@ public class DialogueManager : MonoBehaviour
     [Header("Dialogue UI")]
     [SerializeField] private GameObject dialoguePanel;
 
-    [SerializeField] private TextMeshProUGUI dialogueText;
+    [SerializeField] private Text dialogueText;
 
     [Header("Choices UI")]
 
@@ -44,6 +44,9 @@ public class DialogueManager : MonoBehaviour
     public RectTransform speakerFrame;
     public RectTransform positionLeft;
     public RectTransform positionRight;
+
+    private UnityEngine.Object tempAnnotator;
+    private UnityEngine.Object tempAnnotator2;
 
     private void Awake()
     {
@@ -117,6 +120,8 @@ public class DialogueManager : MonoBehaviour
 
     private void ContinueStory()
     {
+        UnityEngine.Object.Destroy(tempAnnotator);
+        UnityEngine.Object.Destroy(tempAnnotator2);
         if (currentStory.canContinue)
         {
             // set text for the current dialogue line
@@ -131,6 +136,7 @@ public class DialogueManager : MonoBehaviour
             
             ExitDialogueMode();
         }
+        
     }
 
     private void DisplayChoices()
@@ -187,16 +193,31 @@ public class DialogueManager : MonoBehaviour
         {
             // parse the tag
             string[] splitTag = tag.Split(':');
-            if (splitTag.Length != 2)
+            /*if (splitTag.Length != 2)
             {
-                Debug.LogError("Tag could not be appropriately parsed: " + tag);
-            }
+                if (splitTag.Length == 3 && splitTag[0].Trim()=="anno")
+                {
+                    *//*Debug.Log("Ìí¼Ó×¢ÊÍ" + tag);
+                    GetComponent<TextAnnotator>().AddAnnotation(splitTag[1].Trim(), splitTag[2].Trim());*//*
+                }
+                else
+                    Debug.LogError("Tag could not be appropriately parsed: " + tag);
+            }*/
             string tagKey = splitTag[0].Trim();
             string tagValue = splitTag[1].Trim();
 
             // handle the tag
             switch (tagKey)
             {
+                case "anno":
+                    Debug.Log("Ìí¼Ó×¢ÊÍ" + tag+ "  1:" + splitTag[1].Trim() + "  2:" + splitTag[2].Trim());
+                    tempAnnotator = GetComponent<TextAnnotator>().AddAnnotation(splitTag[1].Trim(), splitTag[2].Trim());
+                    break;
+                case "anno2":
+                    Debug.Log("Ìí¼Ó×¢ÊÍ" + tag + "  1:" + splitTag[1].Trim() + "  2:" + splitTag[2].Trim());
+                    tempAnnotator2 = GetComponent<TextAnnotator>().AddAnnotation(splitTag[1].Trim(), splitTag[2].Trim());
+                    break;
+
                 case SPEAKER_TAG:
                     Debug.Log(tagValue);
                     displayNameText.text = tagValue;
