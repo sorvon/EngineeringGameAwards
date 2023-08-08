@@ -42,6 +42,22 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     private bool moveLock;
     private AudioSource audioSource;
 
+    [Header("Bubble")]
+    [SerializeField] private TextAsset powerwarning;
+    [SerializeField] private TextAsset timewarning;
+    [SerializeField] private TextAsset actionwarning;
+    [SerializeField] private TextAsset quantitywarning;
+    [SerializeField] private bool havepowerwarning = false;
+    [SerializeField] private bool havetimewarning = false;
+    [SerializeField] private bool haveactionwarning = false;
+    [SerializeField] public bool havequantitywarning = false;
+    [SerializeField] public bool toquantitywarning = false;
+    [SerializeField] public int powerwarningtarget = 290;
+    [SerializeField] public int timewarningtarget = 1480;
+    [SerializeField] public int actionwarningtarget = 20;
+    [SerializeField] public int quantitywarningtarget = 3;
+    [SerializeField] private float noOperationTime;
+
     private void Awake()
     {
         velocity = velocityBase;
@@ -84,7 +100,53 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     private void Update()
     {
-        if ((stateManager.timeCountdown<0||stateManager.powerCountdown<0)&& !failMenu.activeSelf)
+        {
+            Debug.Log("电力值" + stateManager.powerCountdown);
+            if (stateManager.powerCountdown < powerwarningtarget && !havepowerwarning)
+            {
+                Debug.Log("电力气泡提示");
+                DialogueManager.GetInstance().EnterDialogueMode(powerwarning);
+                havepowerwarning = true;
+            }
+            else if (stateManager.powerCountdown > powerwarningtarget)
+            {
+                havepowerwarning = false;
+            }
+            //电力过低提示
+
+            if (stateManager.timeCountdown < timewarningtarget && !havetimewarning)
+            {
+                Debug.Log("时间气泡提示");
+                DialogueManager.GetInstance().EnterDialogueMode(timewarning);
+                havetimewarning = true;
+            }
+            else if (stateManager.timeCountdown > timewarningtarget)
+            {
+                havetimewarning = false;
+            }
+            //时间过低提示
+            if (noOperationTime > actionwarningtarget && !haveactionwarning)
+            {
+                Debug.Log("无操作提示");
+                DialogueManager.GetInstance().EnterDialogueMode(actionwarning);
+                haveactionwarning = true;
+            }
+            else if (noOperationTime < actionwarningtarget)
+            {
+                haveactionwarning = false;
+            }
+            //无操作提示
+            if (toquantitywarning && !havequantitywarning)
+            {
+                DialogueManager.GetInstance().EnterDialogueMode(quantitywarning);
+                toquantitywarning = false;
+                havequantitywarning = true;
+            }
+        }
+
+
+
+            if ((stateManager.timeCountdown<0||stateManager.powerCountdown<0)&& !failMenu.activeSelf)
         {
             if (stateManager.powerCountdown < 0)
             {
@@ -115,6 +177,16 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     }
     private void FixedUpdate()
     {
+        if (Input.anyKey)
+        {
+            noOperationTime = 0;
+        }
+        else
+        {
+            noOperationTime += Time.fixedDeltaTime;
+        }
+        //监测无操作时间
+
         hitIntervalTimeCount += Time.fixedDeltaTime;
         var v = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         //print(v);

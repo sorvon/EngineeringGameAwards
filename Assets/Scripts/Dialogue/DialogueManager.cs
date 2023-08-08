@@ -254,8 +254,9 @@ public class DialogueManager : MonoBehaviour
                     Debug.Log(tagValue);
                     if (tagValue == "left")
                     {
-                        speakerLeft.color = Color.white;
                         speakerRight.color = Color.gray;
+                        speakerLeft.color = Color.white;
+                        
                         //speakerNow = speakerLeft;
                         speakerFrame.position = positionLeft.position;
                         speakerLeft.sprite = crtNow;
