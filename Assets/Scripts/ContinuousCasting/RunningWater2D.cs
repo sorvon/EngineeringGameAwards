@@ -15,7 +15,7 @@ public class RunningWater2D : MonoBehaviour
 
     public float GetRadius()
     {
-        return collider.radius;
+        return collider.radius * 1.5f;
     }
 
     private void OnDestroy()

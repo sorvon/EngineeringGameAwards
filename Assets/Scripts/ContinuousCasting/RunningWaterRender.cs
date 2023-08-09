@@ -40,11 +40,12 @@ public class RunningWaterRender : ScriptableRendererFeature
         public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
         {
             CommandBuffer cmd = CommandBufferPool.Get(profilerTag);
-
             if (isFirstRender)
             {
                 cmd.SetGlobalVectorArray("_RunningWaterData", new Vector4[1000]);
+                context.ExecuteCommandBuffer(cmd);
                 isFirstRender = false;
+                return;
             }
 
             List<RunningWater2D> runningWaters = RunningWaterSystem2D.Get();
