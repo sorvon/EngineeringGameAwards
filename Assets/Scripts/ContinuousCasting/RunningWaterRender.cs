@@ -34,7 +34,6 @@ public class RunningWaterRender : ScriptableRendererFeature
 
         private RenderTargetIdentifier source;
         private string profilerTag;
-        //Vector4[] runningWaterDataArr = new Vector4[1000];
 
 
         public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
@@ -60,10 +59,6 @@ public class RunningWaterRender : ScriptableRendererFeature
 
             if (runningWaterData.Count > 0)
             {
-                //for(int i = 0; i < runningWaterData.Count; i++)
-                //{
-                //    runningWaterDataArr[i] = runningWaterData[i];
-                //}
                 cmd.SetGlobalInt("_RunningWaterCount", runningWaters.Count);
                 cmd.SetGlobalVectorArray("_RunningWaterData", runningWaterData);
                 cmd.SetGlobalFloat("_OutlineSize", outlineSize);
