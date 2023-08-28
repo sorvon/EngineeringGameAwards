@@ -12,17 +12,27 @@ public class CrosshairController : MonoBehaviour
     [Header("Debug")]
     [SerializeField] List<GameObject> beaconList;
     [SerializeField] int beaconIndex = 0;
+    [SerializeField] Rigidbody2D rb;
+    [SerializeField] DigDialogManager digitalDialogManager;
     // Update is called once per frame
 
     private void Awake()
     {
+        rb = GetComponent<Rigidbody2D>();
+        digitalDialogManager = GetComponent<DigDialogManager>();
         beaconIndex = 0;
     }
-    void Update()
+    void FixedUpdate()
     {
-        float axix_v = Input.GetAxis("Vertical");
-        float axix_h = Input.GetAxis("Horizontal");
-        transform.position += new Vector3(axix_h, axix_v, 0) * Time.deltaTime * moveSpeed;
+        float axix_v = Input.GetAxis("Vertical") * moveSpeed;
+        float axix_h = Input.GetAxis("Horizontal") * moveSpeed;
+        rb.velocity = new Vector3(axix_h, axix_v, 0);
+        //transform.position += new Vector3(axix_h, axix_v, 0) * Time.deltaTime * moveSpeed;
+        
+    }
+
+    private void Update()
+    {
         if (Input.GetButtonDown("Fire1"))
         {
             var bPos = transform.position;
@@ -39,12 +49,21 @@ public class CrosshairController : MonoBehaviour
                 beaconIndex += 1;
                 beaconIndex %= 3;
             }
+            int less_1_cnt = 0;
             foreach (var b in beaconList)
             {
                 var anim = b.GetComponent<Animator>();
                 anim.Play("Begin");
-                
-                anim.SetFloat("Distance", (dest.position - b.transform.position).magnitude);
+                var dis = (dest.position - b.transform.position).magnitude;
+                anim.SetFloat("Distance", dis);
+                if (dis < 1)
+                {
+                    less_1_cnt++;
+                }
+                if(less_1_cnt == 3)
+                {
+                    digitalDialogManager.ToDig();
+                }
             }
         }
     }

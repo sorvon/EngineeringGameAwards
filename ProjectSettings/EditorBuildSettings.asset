@@ -35,4 +35,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Quench DYH.unity
     guid: 023f7eaaceaa0514a9fc6095415f37d0
+  - enabled: 1
+    path: Assets/Scenes/LevelSelect.unity
+    guid: c27b327f684f577448d4268c890c1b5e
   m_configObjects: {}

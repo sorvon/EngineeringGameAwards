@@ -18,7 +18,7 @@ public class DigDialogManager : MonoBehaviour, IDataPersistence
             SceneManager.LoadScene("Dig");
         }
     }
-    public  void ToDig()
+    public void ToDig()
     {
         if (baseDigDialog)
         {

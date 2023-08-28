@@ -42,11 +42,13 @@ public class ChangeScene : MonoBehaviour, IDataPersistence
         {
             if (swords[i])
             {
-                swordImages[i+2].color = new Color(255, 255, 255);
+                swordImages[i+2].enabled = false;
+                swordImages[i+10].enabled = true;
             }
             else
             {
-                swordImages[i+2].color = new Color(0, 0, 0);
+                swordImages[i + 2].enabled = true;
+                swordImages[i + 10].enabled = false;
             }
         }
     }
