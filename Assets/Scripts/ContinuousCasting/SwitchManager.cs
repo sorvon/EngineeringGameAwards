@@ -22,9 +22,10 @@ public class SwitchManager : MonoBehaviour
         fallCount+=Time.deltaTime;
         if (fallCount > fallInterval && circles.Count > 0)
         {
-            circles.Peek().enabled = false;
+            circles.Peek().gameObject.layer = 11;
             circles.Dequeue();
             fallCount = 0;
+            
         }
     }
 
@@ -35,4 +36,10 @@ public class SwitchManager : MonoBehaviour
             circles.Enqueue(circle);
         };
     }
+
+    //private IEnumerator CircleEnable(CircleCollider2D circle)
+    //{
+    //    yield return new WaitForSeconds(1);
+    //    circle.enabled = true;
+    //}
 }
