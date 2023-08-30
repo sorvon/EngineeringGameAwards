@@ -38,4 +38,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LevelSelect.unity
     guid: c27b327f684f577448d4268c890c1b5e
+  - enabled: 1
+    path: Assets/Scenes/ContinuousCasting.unity
+    guid: 1c5f6c7a4c47a1a4ba40bc361d822aee
   m_configObjects: {}

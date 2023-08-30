@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2697361816811509772}
   m_Layer: 0
   m_Name: WaterParticle
-  m_TagString: Untagged
+  m_TagString: WaterParticle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -18,6 +18,7 @@ TagManager:
   - MineA
   - MineB
   - Ancient
+  - WaterParticle
   layers:
   - Default
   - TransparentFX
@@ -31,7 +32,7 @@ TagManager:
   - BonusItem
   - Ancient
   - WaterParticle
-  - 
+  - WaterSwitch
   - 
   - 
   - 
