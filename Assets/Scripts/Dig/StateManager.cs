@@ -9,6 +9,7 @@ public class StateManager : MonoBehaviour, IDataPersistence
     [Header("Debug")]
     public int mineNumA;
     public int mineNumB;
+    public PlayerController playerController1;
     [Header("时间配置")]
     [SerializeField] private float timeMax = 25 * 60;
     [SerializeField] private float powerMax = 5 * 60;
@@ -19,6 +20,7 @@ public class StateManager : MonoBehaviour, IDataPersistence
     [SerializeField] TextMeshProUGUI powerText;
     [SerializeField] TextMeshProUGUI mineTextA;
     [SerializeField] TextMeshProUGUI mineTextB;
+
     public float timeCountdown { get; private set; }
     public float powerCountdown { get; private set; }
 
@@ -56,6 +58,17 @@ public class StateManager : MonoBehaviour, IDataPersistence
         mineNumB += cntB;
         mineTextA.text = Convert.ToString(mineNumA);
         mineTextB.text = Convert.ToString(mineNumB);
+        
+        //矿物过多升级提醒
+        if (mineNumA + mineNumB >= playerController1.quantitywarningtarget && !playerController1.havequantitywarning)
+        {
+            DialogueManager.GetInstance().EnterDialogueMode(playerController1.quantitywarning);
+            playerController1.havequantitywarning = true;
+        }
+        else if(mineNumA + mineNumB < playerController1.quantitywarningtarget)
+        {
+            playerController1.havequantitywarning = false;
+        }
     }
 
     void IDataPersistence.LoadData(GameData gameData)

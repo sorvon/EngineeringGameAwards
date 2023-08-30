@@ -251,4 +251,9 @@ public class PlayerQuench : MonoBehaviour, IDataPersistence
         int steel_index = PlayerPrefs.GetInt("steel_index", defaultSteelIndex);
         gameData.swords[steel_index] = true;
     }
+
+    void SucceedAnimationPlay()
+    {
+
+    }
 }

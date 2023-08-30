@@ -46,16 +46,16 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     [SerializeField] private TextAsset powerwarning;
     [SerializeField] private TextAsset timewarning;
     [SerializeField] private TextAsset actionwarning;
-    [SerializeField] private TextAsset quantitywarning;
+    [SerializeField] public TextAsset quantitywarning;
     [SerializeField] private bool havepowerwarning = false;
     [SerializeField] private bool havetimewarning = false;
     [SerializeField] private bool haveactionwarning = false;
     [SerializeField] public bool havequantitywarning = false;
     [SerializeField] public bool toquantitywarning = false;
-    [SerializeField] public int powerwarningtarget = 290;
-    [SerializeField] public int timewarningtarget = 1480;
-    [SerializeField] public int actionwarningtarget = 20;
-    [SerializeField] public int quantitywarningtarget = 3;
+    [SerializeField] public int powerwarningtarget;
+    [SerializeField] public int timewarningtarget;
+    [SerializeField] public int actionwarningtarget;
+    [SerializeField] public int quantitywarningtarget;
     [SerializeField] private float noOperationTime;
 
     private void Awake()
