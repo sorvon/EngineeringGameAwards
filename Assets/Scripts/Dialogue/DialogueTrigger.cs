@@ -8,6 +8,8 @@ public class DialogueTrigger : MonoBehaviour, IDataPersistence
     [Header("Ink JSON")]
     [SerializeField] private TextAsset inkJSON;
     [SerializeField] private int digLevel = 1;
+    [SerializeField] public TextAsset[] successDialogText;
+    public bool successDialog = false;
     GameData gameData;
 
     //private bool toEnterDialogue;
@@ -27,6 +29,10 @@ public class DialogueTrigger : MonoBehaviour, IDataPersistence
     
     private void Start()
     {
+        if (!PlayerPrefs.HasKey("successDialogue"))
+        {
+            PlayerPrefs.SetInt("successDialogue", -1);
+        }
         if (DialogueManager.GetInstance().dialogueIsPlaying) return;
         string sceneName = SceneManager.GetActiveScene().name;
         switch (sceneName)
@@ -36,7 +42,15 @@ public class DialogueTrigger : MonoBehaviour, IDataPersistence
                 {
                     DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
                     gameData.baseDialog = false;
+                    PlayerPrefs.SetInt("successDialogue", -1);
                 }
+                //锻造成功后的对话
+                if (PlayerPrefs.GetInt("successDialogue") >= 0)
+                {
+                    DialogueManager.GetInstance().EnterDialogueMode(successDialogText[PlayerPrefs.GetInt("successDialogue")]);
+                    PlayerPrefs.SetInt("successDialogue", -1);
+                }
+                
                 break;
             case "Steel":
                 if (gameData.steelDialog)

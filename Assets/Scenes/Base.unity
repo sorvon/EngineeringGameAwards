@@ -5907,6 +5907,70 @@ PrefabInstance:
       propertyPath: inkJSON
       value: 
       objectReference: {fileID: 4900000, guid: c541558fd3571814cac3b6689f259689, type: 3}
+    - target: {fileID: 5517116415544010354, guid: 30a7285b8ed29de44a847c20c4df84cd, type: 3}
+      propertyPath: successDialog.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5517116415544010354, guid: 30a7285b8ed29de44a847c20c4df84cd, type: 3}
+      propertyPath: successDialog.Array.data[0]
+      value: 
+      objectReference: {fileID: 4900000, guid: 137425fffb7b21b46b45e26fe8be8794, type: 3}
+    - target: {fileID: 5517116415544010354, guid: 30a7285b8ed29de44a847c20c4df84cd, type: 3}
+      propertyPath: successDialog.Array.data[1]
+      value: 
+      objectReference: {fileID: 4900000, guid: db498d36606fdd244b5511c9032037e6, type: 3}
+    - target: {fileID: 5517116415544010354, guid: 30a7285b8ed29de44a847c20c4df84cd, type: 3}
+      propertyPath: successDialog.Array.data[2]
+      value: 
+      objectReference: {fileID: 4900000, guid: 77f6099757469fe44a5b3ce761911deb, type: 3}
+    - target: {fileID: 5517116415544010354, guid: 30a7285b8ed29de44a847c20c4df84cd, type: 3}
+      propertyPath: successDialog.Array.data[3]
+      value: 
+      objectReference: {fileID: 4900000, guid: 0e4e73019726dba4cb703b1054973e28, type: 3}
+    - target: {fileID: 5517116415544010354, guid: 30a7285b8ed29de44a847c20c4df84cd, type: 3}
+      propertyPath: successDialog.Array.data[4]
+      value: 
+      objectReference: {fileID: 4900000, guid: fa709e86ce6def24cba458dc6d0c746b, type: 3}
+    - target: {fileID: 5517116415544010354, guid: 30a7285b8ed29de44a847c20c4df84cd, type: 3}
+      propertyPath: successDialog.Array.data[5]
+      value: 
+      objectReference: {fileID: 4900000, guid: c05f3b7c04015c74f84a1544d334b6cf, type: 3}
+    - target: {fileID: 5517116415544010354, guid: 30a7285b8ed29de44a847c20c4df84cd, type: 3}
+      propertyPath: successDialog.Array.data[6]
+      value: 
+      objectReference: {fileID: 4900000, guid: 0dbf9bc8458a5644ead74b8ba205eb03, type: 3}
+    - target: {fileID: 5517116415544010354, guid: 30a7285b8ed29de44a847c20c4df84cd, type: 3}
+      propertyPath: successDialogText.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5517116415544010354, guid: 30a7285b8ed29de44a847c20c4df84cd, type: 3}
+      propertyPath: successDialogText.Array.data[0]
+      value: 
+      objectReference: {fileID: 4900000, guid: 137425fffb7b21b46b45e26fe8be8794, type: 3}
+    - target: {fileID: 5517116415544010354, guid: 30a7285b8ed29de44a847c20c4df84cd, type: 3}
+      propertyPath: successDialogText.Array.data[1]
+      value: 
+      objectReference: {fileID: 4900000, guid: db498d36606fdd244b5511c9032037e6, type: 3}
+    - target: {fileID: 5517116415544010354, guid: 30a7285b8ed29de44a847c20c4df84cd, type: 3}
+      propertyPath: successDialogText.Array.data[2]
+      value: 
+      objectReference: {fileID: 4900000, guid: 77f6099757469fe44a5b3ce761911deb, type: 3}
+    - target: {fileID: 5517116415544010354, guid: 30a7285b8ed29de44a847c20c4df84cd, type: 3}
+      propertyPath: successDialogText.Array.data[3]
+      value: 
+      objectReference: {fileID: 4900000, guid: 0e4e73019726dba4cb703b1054973e28, type: 3}
+    - target: {fileID: 5517116415544010354, guid: 30a7285b8ed29de44a847c20c4df84cd, type: 3}
+      propertyPath: successDialogText.Array.data[4]
+      value: 
+      objectReference: {fileID: 4900000, guid: fa709e86ce6def24cba458dc6d0c746b, type: 3}
+    - target: {fileID: 5517116415544010354, guid: 30a7285b8ed29de44a847c20c4df84cd, type: 3}
+      propertyPath: successDialogText.Array.data[5]
+      value: 
+      objectReference: {fileID: 4900000, guid: c05f3b7c04015c74f84a1544d334b6cf, type: 3}
+    - target: {fileID: 5517116415544010354, guid: 30a7285b8ed29de44a847c20c4df84cd, type: 3}
+      propertyPath: successDialogText.Array.data[6]
+      value: 
+      objectReference: {fileID: 4900000, guid: 0dbf9bc8458a5644ead74b8ba205eb03, type: 3}
     - target: {fileID: 5517116415600033491, guid: 30a7285b8ed29de44a847c20c4df84cd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
