@@ -6155,6 +6155,10 @@ PrefabInstance:
       propertyPath: infoImage
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 9126442796230443457, guid: 30a7285b8ed29de44a847c20c4df84cd, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 9195824274328015966, guid: 30a7285b8ed29de44a847c20c4df84cd, type: 3}
       propertyPath: m_fontSize
       value: 36

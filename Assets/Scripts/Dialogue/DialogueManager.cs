@@ -44,6 +44,8 @@ public class DialogueManager : MonoBehaviour
     public RectTransform speakerFrame;
     public RectTransform positionLeft;
     public RectTransform positionRight;
+    public Sprite[] cgImages;
+    public Image specialCG;
 
     private UnityEngine.Object tempAnnotator;
     private UnityEngine.Object tempAnnotator2;
@@ -110,6 +112,7 @@ public class DialogueManager : MonoBehaviour
         //yield return new WaitForSeconds(0.2f);
         Debug.Log("退出对话");
         dialogueIsPlaying = false;
+        specialCG.gameObject.SetActive(false);
         dialoguePanel.SetActive(false);
         dialogueText.text = "";
         speakerLeft.enabled = false;
@@ -235,9 +238,10 @@ public class DialogueManager : MonoBehaviour
                     displayNameText.text = tagValue;
                     if (tagValue == "旁白")
                     {
+                        Debug.Log("旁白文字");
                         speakerFrame.gameObject.SetActive(false);
-                        speakerLeft.enabled = false;
-                        speakerRight.enabled = false;
+                        speakerLeft.sprite = none;
+                        speakerRight.sprite = none;
                     }
                     else
                     {
@@ -275,9 +279,14 @@ public class DialogueManager : MonoBehaviour
                     }
                     //layoutAnimator.Play(tagValue);
                     break;
-/*                case AUDIO_TAG:
-                    SetCurrentAudioInfo(tagValue);
-                    break;*/
+                /*                case AUDIO_TAG:
+                                    SetCurrentAudioInfo(tagValue);
+                                    break;*/
+                case "CG":
+                    specialCG.gameObject.SetActive(true);
+                    specialCG.sprite = cgImages[int.Parse(tagValue)];
+                    break;
+
                 default:
                     Debug.LogWarning("Tag came in but is not currently being handled: " + tag);
                     break;

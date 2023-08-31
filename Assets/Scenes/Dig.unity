@@ -34150,8 +34150,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 61.3, y: 62.363}
-  m_SizeDelta: {x: 721.4072, y: 243.4069}
+  m_AnchoredPosition: {x: 47.69609, y: 62.886215}
+  m_SizeDelta: {x: 653.3877, y: 240.7908}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3339149846763299766
 GameObject:
@@ -34381,6 +34381,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inkJSON: {fileID: 4900000, guid: 4ac650d34c6b2a34ba58644700140cd0, type: 3}
   digLevel: 3
+  successDialogText: []
+  successDialog: 0
 --- !u!114 &4592734089854493667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35648,6 +35650,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inkJSON: {fileID: 4900000, guid: 3c94d5ccf36bdf34eb263bf93c6133f5, type: 3}
   digLevel: 1
+  successDialogText: []
+  successDialog: 0
 --- !u!114 &6396097254750189078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37077,6 +37081,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inkJSON: {fileID: 4900000, guid: 4ac650d34c6b2a34ba58644700140cd0, type: 3}
   digLevel: 2
+  successDialogText: []
+  successDialog: 0
 --- !u!114 &6396097255851390969
 MonoBehaviour:
   m_ObjectHideFlags: 0
