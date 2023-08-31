@@ -393,7 +393,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Steel
+          m_StringArgument: "\u4E5D\u5BAB\u683C"
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &134613818

@@ -10,13 +10,28 @@ public class ChangeScene : MonoBehaviour, IDataPersistence
     private Image[] swordImages;
     private void Awake()
     {
-        swordImages = animator.gameObject.GetComponentsInChildren<Image>();
+        swordImages = animator.gameObject.GetComponentsInChildren<Image>(true);
     }
     public void ToScene(string name)
     {
         PlayerQuench.adjusttime = 5;
         animator.SetTrigger("Start");
         StartCoroutine(LoadScene(name));
+    }
+    public void ToSteelRollingOrContinuousCasting()
+    {
+        PlayerQuench.adjusttime = 5;
+        animator.SetTrigger("Start");
+        var index = PlayerPrefs.GetInt("steel_index");
+        if (index % 2 == 0)
+        {
+            StartCoroutine(LoadScene("SteelRolling"));
+        }
+        else
+        {
+            StartCoroutine(LoadScene("ContinuousCasting"));
+        }
+        
     }
     public void ReloadScene()
     {

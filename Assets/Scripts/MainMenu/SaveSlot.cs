@@ -52,17 +52,19 @@ public class SaveSlot : MonoBehaviour
         }
         DataPersistenceManager.instance.SaveGame();
         var gameData = DataPersistenceManager.instance.GetCurrentGameData();
-        var swordImages = sceneTransition.gameObject.GetComponentsInChildren<Image>();
+        var swordImages = sceneTransition.gameObject.GetComponentsInChildren<Image>(true);
         bool[] swords = gameData.swords;
         for (int i = 0; i < swords.Length; i++)
         {
             if (swords[i])
             {
-                swordImages[i + 2].color = new Color(255, 255, 255);
+                swordImages[i+2].enabled = false;
+                swordImages[i+10].enabled = true;
             }
             else
             {
-                swordImages[i + 2].color = new Color(0, 0, 0);
+                swordImages[i + 2].enabled = true;
+                swordImages[i + 10].enabled = false;
             }
         }
         sceneTransition.SetTrigger("Start");
