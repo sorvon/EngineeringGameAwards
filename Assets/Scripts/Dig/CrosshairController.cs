@@ -60,7 +60,7 @@ public class CrosshairController : MonoBehaviour
                 {
                     less_1_cnt++;
                 }
-                if(less_1_cnt == 3)
+                if(less_1_cnt >= 2)
                 {
                     digitalDialogManager.ToDig();
                 }
