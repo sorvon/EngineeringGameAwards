@@ -5,7 +5,7 @@ using TMPro;
 
 public class SwitchManager : MonoBehaviour
 {
-    [SerializeField]float fallPreSec = 10;
+    [SerializeField] float fallPreSec = 10;
     [SerializeField] Transform maxPos;
     [SerializeField] Transform minPos;
     [SerializeField] TextMeshProUGUI keepText;
@@ -17,10 +17,26 @@ public class SwitchManager : MonoBehaviour
     float successCount = 0;
     float fallCount = 0;
     float fallInterval;
+    
+    int targetSec;
     private void Awake()
     {
         fallInterval = 1 / fallPreSec;
         instance = this;
+    }
+
+    private void Start()
+    {
+        targetSec = 10;
+        int difficulty = PlayerPrefs.GetInt("difficulty");
+        if (difficulty == 2)
+        {
+            targetSec = 15;
+        }
+        else if (difficulty == 3)
+        {
+            targetSec = 20;
+        }
     }
 
     private void FixedUpdate()
@@ -29,7 +45,7 @@ public class SwitchManager : MonoBehaviour
         float maxH = 0;
         foreach (var w in water)
         {
-            if (w.GetComponent<Rigidbody2D>().velocity.y < 0)
+            if (w.GetComponent<Rigidbody2D>().velocity.y < -0.1)
             {
                 continue;
             }
@@ -41,10 +57,18 @@ public class SwitchManager : MonoBehaviour
         }
         else
         {
-            successCount-=Time.deltaTime;
+            if (targetSec == 15)
+            {
+                successCount -= Time.deltaTime * 2;
+            }
+            else if(targetSec == 20)
+            {
+                successCount -= Time.deltaTime * 4;
+            }
+            
         }
         successCount = Mathf.Max(successCount, 0);
-        keepText.text = string.Format("保持: {0:0.0} / 10", successCount);
+        keepText.text = string.Format("保持: {0:0.0} / {1}", successCount, targetSec);
         if (successCount > 0)
         {
             keepText.enabled = true;
@@ -53,7 +77,7 @@ public class SwitchManager : MonoBehaviour
         {
             keepText.enabled = false;
         }
-        if (successCount>=10)
+        if (successCount>=targetSec)
         {
             Time.timeScale = 0;
             SuccessMenu.SetActive(true);
