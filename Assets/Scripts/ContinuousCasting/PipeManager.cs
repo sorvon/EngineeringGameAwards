@@ -24,12 +24,21 @@ public class PipeManager : MonoBehaviour
             return;
         }
         instance = this;
+        particleInterval = 1.0f / particlePerSec;
+        //PlayerPrefs.SetInt("difficulty", 3);
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        particleInterval = 1.0f / particlePerSec;
+        //int difficulty = PlayerPrefs.GetInt("difficulty");
+        //if (difficulty == 2)
+        //{
+        //    particleInterval *= 0.5f;
+        //}
+        //else if (difficulty == 3)
+        //{
+        //    particleInterval *= 0.33f;
+        //}
     }
 
     // Update is called once per frame
