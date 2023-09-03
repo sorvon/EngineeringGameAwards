@@ -24,6 +24,9 @@ public class GameData
     public bool steelDialog = true;
     public bool steelRollingDialog = true;
     public bool quenchDialog = true;
+    public bool sudokuDialog = true;
+    public bool continuousCastingDialog = true;
+    public bool detectDialog = true;
     public bool[] digDialogs;
     public GameData()
     {

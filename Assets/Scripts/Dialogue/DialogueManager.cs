@@ -240,8 +240,8 @@ public class DialogueManager : MonoBehaviour
                     {
                         Debug.Log("ет╟вндвж");
                         speakerFrame.gameObject.SetActive(false);
-                        speakerLeft.sprite = none;
-                        speakerRight.sprite = none;
+                        speakerLeft.enabled = false;
+                        speakerRight.enabled = false;
                     }
                     else
                     {
@@ -265,7 +265,7 @@ public class DialogueManager : MonoBehaviour
                         speakerFrame.position = positionLeft.position;
                         speakerLeft.sprite = crtNow;
                         if (speakerLeft.sprite) speakerLeft.enabled = true;
-                        if (speakerRight.sprite) speakerRight.enabled = true;
+                        //if (speakerRight.sprite) speakerRight.enabled = true;
                     }
                     else
                     {  
@@ -274,7 +274,7 @@ public class DialogueManager : MonoBehaviour
                         //speakerNow = speakerRight;
                         speakerFrame.position = positionRight.position;
                         speakerRight.sprite = crtNow;
-                        if (speakerLeft.sprite) speakerLeft.enabled = true;
+                        //if (speakerLeft.sprite) speakerLeft.enabled = true;
                         if (speakerRight.sprite) speakerRight.enabled = true;
                     }
                     //layoutAnimator.Play(tagValue);

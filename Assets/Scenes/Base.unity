@@ -5979,6 +5979,14 @@ PrefabInstance:
       propertyPath: dialogueText
       value: 
       objectReference: {fileID: 456080424}
+    - target: {fileID: 5517116415600033493, guid: 30a7285b8ed29de44a847c20c4df84cd, type: 3}
+      propertyPath: cgImages.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5517116415600033493, guid: 30a7285b8ed29de44a847c20c4df84cd, type: 3}
+      propertyPath: cgImages.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 03709a50f517dee4084aa449d8648dce, type: 3}
     - target: {fileID: 5517116415868377384, guid: 30a7285b8ed29de44a847c20c4df84cd, type: 3}
       propertyPath: m_Name
       value: DialogueSystem

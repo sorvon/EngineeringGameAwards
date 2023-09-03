@@ -2028,7 +2028,7 @@ PrefabInstance:
     - target: {fileID: 5517116415544010354, guid: 30a7285b8ed29de44a847c20c4df84cd, type: 3}
       propertyPath: inkJSON
       value: 
-      objectReference: {fileID: 4900000, guid: 9461ea7d8cc4cfc4893ea723844a386a, type: 3}
+      objectReference: {fileID: 4900000, guid: 17b38823d29fad1438a6b6807f5876b8, type: 3}
     - target: {fileID: 5517116415868377384, guid: 30a7285b8ed29de44a847c20c4df84cd, type: 3}
       propertyPath: m_Name
       value: DialogueSystem

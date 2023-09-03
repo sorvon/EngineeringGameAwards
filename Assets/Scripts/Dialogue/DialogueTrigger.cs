@@ -80,6 +80,27 @@ public class DialogueTrigger : MonoBehaviour, IDataPersistence
                     gameData.digDialogs[digLevel - 1] = false;
                 }
                 break;
+            case "¾Å¹¬¸ñ":
+                if (gameData.sudokuDialog)
+                {
+                    DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
+                    gameData.sudokuDialog = false;
+                }
+                break;
+            case "ContinuousCasting":
+                if (gameData.continuousCastingDialog)
+                {
+                    DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
+                    gameData.continuousCastingDialog = false;
+                }
+                break;
+            case "LevelSelect":
+                if (gameData.detectDialog)
+                {
+                    DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
+                    gameData.detectDialog = false;
+                }
+                break;
             default:
                 break;
         }

@@ -135,6 +135,7 @@ namespace TMPro
         {
             if (isOnAnnoWord)
             {
+                Debug.Log("添加注释中");
                 if (annoWordNow == annoWord1)
                 {
                     Debug.Log("注释文本1：" + annoText1);
