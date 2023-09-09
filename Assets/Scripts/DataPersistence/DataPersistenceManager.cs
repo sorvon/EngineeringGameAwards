@@ -42,7 +42,10 @@ public class DataPersistenceManager : MonoBehaviour
         SceneManager.sceneLoaded += (Scene scene, LoadSceneMode mode) =>
         {
             dataPersistenceObjects = FindAllDataPersistenceObjects();
-            LoadGame();
+            if (scene.name != "StartScene" || selectedProfileId != "data.game")
+            {
+                LoadGame();
+            }
         };
     }
     public void NewGame()

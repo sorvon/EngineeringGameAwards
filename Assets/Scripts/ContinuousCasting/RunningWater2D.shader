@@ -45,8 +45,9 @@ Shader "RunningWater/RunningWater2D"
                 float threshold = 0.5f;
                 float outlineThreshold = threshold * (1.0f - _OutlineSize);
                 // dist > threshold（即0.5f）表示片元大于一个球半径，说明在球外；dist > outlineThreshold表示小于一个球的半径，大于球内部边缘，处于轮廓线位置。
+                float4 _OutlineColorLerp = lerp(_InnerColor, _OutlineColor, (dist - outlineThreshold)/ (threshold-outlineThreshold));
                 return (dist > threshold) ? tex :
-                    ((dist > outlineThreshold) ? _OutlineColor : _InnerColor);
+                    ((dist > outlineThreshold) ? _OutlineColorLerp : _InnerColor);
             }
 
             ENDCG

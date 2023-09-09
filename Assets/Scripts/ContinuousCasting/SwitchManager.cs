@@ -57,6 +57,10 @@ public class SwitchManager : MonoBehaviour
         }
         else
         {
+            if (targetSec == 10)
+            {
+                successCount -= Time.deltaTime;
+            }
             if (targetSec == 15)
             {
                 successCount -= Time.deltaTime * 2;

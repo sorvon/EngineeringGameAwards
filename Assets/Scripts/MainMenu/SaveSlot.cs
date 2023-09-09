@@ -50,6 +50,10 @@ public class SaveSlot : MonoBehaviour
         {
             DataPersistenceManager.instance.NewGame();
         }
+        else
+        {
+            DataPersistenceManager.instance.LoadGame();
+        }
         DataPersistenceManager.instance.SaveGame();
         var gameData = DataPersistenceManager.instance.GetCurrentGameData();
         var swordImages = sceneTransition.gameObject.GetComponentsInChildren<Image>(true);
@@ -67,6 +71,7 @@ public class SaveSlot : MonoBehaviour
                 swordImages[i + 10].enabled = false;
             }
         }
+        LoadScene(profileId);
         sceneTransition.SetTrigger("Start");
         StartCoroutine(LoadScene("Base"));
     }

@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Spine.Unity;
 public class LineManager : MonoBehaviour
 {
     [SerializeField] float lengthPerParticle = 1f;
+    [SerializeField] SkeletonAnimation skeletonAnimation;
     public static LineManager instance { get; private set; }
     public float lineLength;
     LineRenderer lineRenderer;
     Vector3[] linePositions;
+
+    float animateTime = 0;
     private void Awake()
     {
         instance = this;
@@ -23,10 +26,29 @@ public class LineManager : MonoBehaviour
         lineRenderer.GetPositions(linePositions);
     }
 
+    private void FixedUpdate()
+    {
+        //if (skeletonAnimation.AnimationState. != null)
+        //{
+
+        //}
+        //animateTime -= Time.deltaTime;
+        //animateTime = Mathf.Max(0, animateTime);
+        //if (animateTime > 0)
+        //{
+        //    skeletonAnimation.timeScale = 0.16f;
+        //}
+        //else
+        //{
+        //    skeletonAnimation.timeScale = 0;
+        //}
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("WaterParticle"))
         {
+            animateTime += 1 / 20.8f;
             Destroy(collision.gameObject);
             lineLength += lengthPerParticle;
             Vector3[] curPositions = new Vector3[linePositions.Length];

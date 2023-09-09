@@ -12769,13 +12769,13 @@ MonoBehaviour:
   swordImage0: {fileID: 701789253}
   swordImagesource:
   - {fileID: 21300000, guid: af73b11391014a143a6a7d3a736720fc, type: 3}
-  - {fileID: 21300000, guid: 1655314536eae0648871ee9609b24cc5, type: 3}
   - {fileID: 21300000, guid: ce3bfa05e7c8f294e842649b9e443eba, type: 3}
-  - {fileID: 21300000, guid: 4a0e31c5e053d3a46ac31edc6c95aba9, type: 3}
-  - {fileID: 21300000, guid: 1a1f34df6a3a12c449bf3e851215dff3, type: 3}
   - {fileID: 21300000, guid: b034b289eda393947a76ce6e77495968, type: 3}
-  - {fileID: 21300000, guid: bc6ab75191e33634eb4bc332127ee110, type: 3}
   - {fileID: 21300000, guid: 5c759c081fc4cdf4cb8e363e527baff6, type: 3}
+  - {fileID: 21300000, guid: 1a1f34df6a3a12c449bf3e851215dff3, type: 3}
+  - {fileID: 21300000, guid: bc6ab75191e33634eb4bc332127ee110, type: 3}
+  - {fileID: 21300000, guid: 4a0e31c5e053d3a46ac31edc6c95aba9, type: 3}
+  - {fileID: 21300000, guid: 1655314536eae0648871ee9609b24cc5, type: 3}
   changeScene: {fileID: 1836853274}
 --- !u!224 &1943240983
 RectTransform:

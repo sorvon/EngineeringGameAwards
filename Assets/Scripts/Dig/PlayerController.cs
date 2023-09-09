@@ -101,10 +101,10 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     private void Update()
     {
         {
-            Debug.Log("电力值" + stateManager.powerCountdown);
+            //Debug.Log("电力值" + stateManager.powerCountdown);
             if (stateManager.powerCountdown < powerwarningtarget && !havepowerwarning)
             {
-                Debug.Log("电力气泡提示");
+                //Debug.Log("电力气泡提示");
                 DialogueManager.GetInstance().EnterDialogueMode(powerwarning);
                 havepowerwarning = true;
             }

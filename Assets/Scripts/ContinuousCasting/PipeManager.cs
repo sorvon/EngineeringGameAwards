@@ -25,6 +25,7 @@ public class PipeManager : MonoBehaviour
         }
         instance = this;
         particleInterval = 1.0f / particlePerSec;
+        Time.timeScale = 0;
         //PlayerPrefs.SetInt("difficulty", 3);
     }
 
