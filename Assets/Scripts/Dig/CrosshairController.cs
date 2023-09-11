@@ -10,8 +10,10 @@ public class CrosshairController : MonoBehaviour
     [SerializeField] GameObject beacon;
     [SerializeField] Transform dest;
     [SerializeField] GameObject successMenu;
-    [SerializeField] SpriteRenderer rulerY;
-    [SerializeField] SpriteRenderer rulerX;
+    //[SerializeField] SpriteRenderer rulerY;
+    //[SerializeField] SpriteRenderer rulerX;
+    [SerializeField] Image rulerY;
+    [SerializeField] Image rulerX;
     [SerializeField] float materialOffsetK = 1;
     [SerializeField] float randomRMin = 1;
     [SerializeField] float randomRMax = 3;

@@ -90,6 +90,7 @@ public class DialogueTrigger : MonoBehaviour, IDataPersistence
             case "ContinuousCasting":
                 if (gameData.continuousCastingDialog)
                 {
+                    
                     DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
                     gameData.continuousCastingDialog = false;
                 }

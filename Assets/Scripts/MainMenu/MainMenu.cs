@@ -18,6 +18,11 @@ public class MainMenu : MonoBehaviour
         {
             continueGameButton.interactable = false;
         }
+        if (Debug.isDebugBuild)
+        {
+            Debug.LogError("test");
+        }
+        
     }
     public void OnNewGameClicked()
     {
