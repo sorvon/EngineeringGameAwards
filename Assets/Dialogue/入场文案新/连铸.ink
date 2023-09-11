@@ -1,7 +1,7 @@
-->test1
+->lianzhu
 //第一次进入九宫格
 //a主角 b道士 c信使
-===test1===
+===lianzhu===
 来吧，徒弟，给为师解释一下这是什么？#speaker:白猿 #portrait:B #layout:right
 这个步骤叫做<b><color=blue>“连铸”</color></b>，比起模注法更节约材料，成材率也更高#speaker:你  #portrait:A2 #layout:left #anno:连铸:钢液经过连续铸钢机直接生产钢坯的方法叫连续铸钢，简称连铸。
 好，再问的深一点，这个工序包含哪些结构？#speaker:白猿 #portrait:B #layout:right
