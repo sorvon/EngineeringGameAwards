@@ -1,7 +1,7 @@
-->zhagang
+->tance
 //第一次进入QTE
 //a主角 b道士 c信使
-===zhagang===
+===tance===
 探测我之前进行过模拟操作了，师傅。#speaker:你 #portrait:A2 #layout:left
 说了多少次了，读万卷书，行万里路，你不缺理论知识，但是实践呢？#speaker:白猿 #portrait:B #layout:right
 简单来说，探测就是发送多个信标，寻找遗迹的信号。#speaker:你 #portrait:A2 #layout:left
