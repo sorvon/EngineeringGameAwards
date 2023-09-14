@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class DoorOpenManager : MonoBehaviour
 {
     public GameObject[] lines;
+    public GameObject[] levels;
     public GameObject nineGrid;
     public Animator clockAnimator;
     public Button nextButton;
@@ -28,6 +29,8 @@ public class DoorOpenManager : MonoBehaviour
             length = c;
         }
     }
+    Target level_target;
+    List<Target> level_targets = new List<Target>();
     Target level_1 = new Target(-44.173f, -66.26f, 10.47007f);
     private void Awake()
     {
@@ -40,6 +43,22 @@ public class DoorOpenManager : MonoBehaviour
         for (int i = 0; i < lines.Length; i++)
         {
             lines[i].transform.localRotation = Quaternion.Euler(0, 0, k);
+        }
+        level_targets.Add(new Target(-44.173f, -66.26f, 10.47007f));
+        level_targets.Add(new Target(-20.721f, 311.651f, 10.47007f));
+        level_targets.Add(new Target(-103.764f, -3.174f, 10.47007f));//-29.22 -129.76
+        int level_index = Random.Range(0, levels.Length);
+        level_target = level_targets[level_index];
+        for (int i = 0; i < levels.Length; i++)
+        {
+            if (i==level_index)
+            {
+                levels[i].SetActive(true);
+            }
+            else
+            {
+                levels[i].SetActive(false);
+            }
         }
     }
 
@@ -71,7 +90,7 @@ public class DoorOpenManager : MonoBehaviour
         while (b > 360) b -= 360;
         while (a < 0) a += 360;
         while (b < 0) b += 360;
-        return Mathf.Abs(a - b) / b < 0.01f;
+        return Mathf.Abs(a - b) / b < 0.02f;
     }
     private bool nearEqual(float a, float b)
     {
@@ -84,7 +103,7 @@ public class DoorOpenManager : MonoBehaviour
     private bool Check()
     {
         float curLength = lines[0].transform.localScale.x;
-        Target target = level_1;
+        Target target = level_target;
         if (!nearEqualLength(curLength, target.length))
         {
             print("³¤¶È²»Æ¥Åä");
