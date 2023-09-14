@@ -112,7 +112,11 @@ public class DialogueManager : MonoBehaviour
         //yield return new WaitForSeconds(0.2f);
         Debug.Log("ÍË³ö¶Ô»°");
         dialogueIsPlaying = false;
-        specialCG.gameObject.SetActive(false);
+        if (specialCG != null)
+        {
+            specialCG.gameObject.SetActive(false);
+        }
+        
         dialoguePanel.SetActive(false);
         dialogueText.text = "";
         speakerLeft.enabled = false;

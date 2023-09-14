@@ -717,13 +717,13 @@ MonoBehaviour:
   steelImage: {fileID: 985984586}
   steelSprites:
   - {fileID: 21300000, guid: ce6759d425c849443a8e9c076493b016, type: 3}
-  - {fileID: 21300000, guid: 72cd5ebd3a1045a4292dc719f2ea4498, type: 3}
   - {fileID: 21300000, guid: 7481d1cde0cf662408b59fa0f2019b97, type: 3}
-  - {fileID: 21300000, guid: a822d46f29bbcaa4d86f38c890295d0a, type: 3}
-  - {fileID: 21300000, guid: b426aed733bb10d4eb06f965cd3bf429, type: 3}
   - {fileID: 21300000, guid: d60c10ee98fbf184fa268f06cc3ae0fb, type: 3}
-  - {fileID: 21300000, guid: db73a6ece0180fa478667acdac2e99d6, type: 3}
   - {fileID: 21300000, guid: eac2ffafdbdf90c4c81283bd0479085a, type: 3}
+  - {fileID: 21300000, guid: b426aed733bb10d4eb06f965cd3bf429, type: 3}
+  - {fileID: 21300000, guid: db73a6ece0180fa478667acdac2e99d6, type: 3}
+  - {fileID: 21300000, guid: a822d46f29bbcaa4d86f38c890295d0a, type: 3}
+  - {fileID: 21300000, guid: 72cd5ebd3a1045a4292dc719f2ea4498, type: 3}
   scoretext: {fileID: 1369909173}
   punishmentvalue: 2
   rewardvalue: 2

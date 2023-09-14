@@ -47,7 +47,10 @@ public class DialogueTrigger : MonoBehaviour, IDataPersistence
                 //锻造成功后的对话
                 if (PlayerPrefs.GetInt("successDialogue") >= 0)
                 {
-                    DialogueManager.GetInstance().EnterDialogueMode(successDialogText[PlayerPrefs.GetInt("successDialogue")]);
+                    if (PlayerPrefs.GetInt("successDialogue") < 7)
+                    {
+                        DialogueManager.GetInstance().EnterDialogueMode(successDialogText[PlayerPrefs.GetInt("successDialogue")]);
+                    }
                     PlayerPrefs.SetInt("successDialogue", -1);
                 }
                 

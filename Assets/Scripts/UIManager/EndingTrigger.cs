@@ -35,7 +35,7 @@ public class EndingTrigger : MonoBehaviour, IDataPersistence
             }
         }
         //isEnd = true;
-        if (isEnd)
+        if (isEnd && PlayerPrefs.GetInt("successDialogue") >= 0 && PlayerPrefs.GetInt("successDialogue") == 7)
         {
             if (TryGetComponent<Animator>(out var animator))
             {
